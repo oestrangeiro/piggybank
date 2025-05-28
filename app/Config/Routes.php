@@ -8,4 +8,4 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 // Rotas da api
-$routes->resource('product');
+$routes->resource('users');
