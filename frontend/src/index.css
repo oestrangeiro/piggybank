@@ -1,0 +1,115 @@
+/* https://stackoverflow.com/questions/43381596/bootstrap-change-navbar-color */
+
+:root {
+  --primary-color: #376A63;
+  --piggy-icon-color: #D8A7B1;
+}
+
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+}
+
+
+/* Components */
+.top-navbar{
+  background: linear-gradient(90deg,rgba(55, 106, 99, 1) 9%, rgba(69, 114, 108, 1) 37%, rgba(70, 115, 109, 1) 64%, rgba(55, 106, 99, 1) 95%);
+}
+.top-navbar .nav-item .nav-link, .navbar-brand {
+  color: whitesmoke !important;
+}
+.top-navbar .nav-item .nav-link:hover {
+  color: var(--bs-secondary-color) !important;
+}
+
+.scroll-top-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scroll-top-btn:hover {
+  background-color: #278cf8;
+}
+
+
+
+/* Campaigns page */
+.campaigns-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+  height: calc(100vh - 100px); /* Altura da tela menos a navbar/topo */
+  overflow: hidden;
+}
+
+.search-tool{
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 100px;
+  background-color: white;
+  padding: 1rem;
+  margin-right: 2rem;
+  border: 1px solid black;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.campaign-container {
+  padding: 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.campaigns-list{
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+
+.campaign-content {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.campaign-image img {
+  width: 170px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+
+.campaign-info h5 {
+  margin: 0 0 4px;
+}
+
+.campaign-info p {
+  margin: 2px 0;
+}
+
