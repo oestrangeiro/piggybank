@@ -15,3 +15,13 @@ body {
 }
 
 
+.top-navbar{
+  background: var(--primary-color);
+}
+.top-navbar .nav-item .nav-link, .navbar-brand {
+  color: whitesmoke !important;
+}
+.top-navbar .nav-item .nav-link:hover {
+  text-decoration: underline;
+  text-decoration-color: white;
+}
