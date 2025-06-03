@@ -1,6 +1,5 @@
 import PiggyBankIcon from '../assets/piggy-bank-fill.svg?react';
 import { Link } from 'react-router-dom';
-import '../index.css';
 
 
 export default function Header() {
