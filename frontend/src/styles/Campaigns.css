@@ -1,15 +1,3 @@
-/* Components */
-.top-navbar{
-  background: var(--primary-color);
-}
-.top-navbar .nav-item .nav-link, .navbar-brand {
-  color: whitesmoke !important;
-}
-.top-navbar .nav-item .nav-link:hover {
-  text-decoration: underline;
-  text-decoration-color: white;
-}
-
 .scroll-top-btn {
   width: 50px;
   height: 50px;
@@ -31,9 +19,23 @@
   background-color: var(--primary-color);
 }
 
+.search-tool{
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.filtering-btn{
+  background-color: var(--secondary-color) !important;
+  border: none !important;
+}
+.filtering-btn:hover {
+  background-color: var(--secondary-color-hover) !important;
+}
+.filtering-btn:active {
+  background-color: var(--secondary-color-active) !important;
+}
 
 
-/* Campaigns page */
 .campaigns-flex {
   display: flex; 
   justify-content: center;
@@ -41,10 +43,6 @@
   height: calc(100vh - 100px); /* Mantém a altura da tela menos a navbar/topo */
   margin-top: 2rem; 
   overflow: hidden;
-}
-.search-tool{
-  border: 1px solid black;
-  border-radius: 8px;
 }
 .campaigns-list {
   display: flex; 
@@ -55,31 +53,23 @@
   padding-bottom: 1rem; 
   padding-top: 0;
   padding-left: 0;
-
   width: 100%; 
 }
-
-
 .campaign-container {
   padding: 12px;
   border: 1.5px solid #ccc;
   border-radius: 12px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
   width: 100%; 
   max-width: 700px; 
 }
-
-
 .campaign-content {
   display: grid;
   grid-template-columns: 170px 1fr; /* Largura fixa para imagem, restante para info */
   gap: 20px;
   align-items: start;
 }
-
-
 .campaign-image img {
   width: 170px;
   height: 140px;
@@ -87,42 +77,41 @@
   border-radius: 8px;
   display: block;
 }
-
-
 .campaign-info {
   flex-grow: 1;
 }
-
 .campaign-info h4 {
   margin: 0 0 4px;
   font-weight: bold;
 }
-
 .campaign-info p {
   margin: 2px 0;
 }
-
 .campaign-info h4, p {
   color: var(--primary-color) !important;
 }
 
+
 .donation-progress .progress {
   height: 12px;
 }
-
 .progress-bar {
   background-color: var(--secondary-color) !important;
 }
-
-.filtering-btn{
-  background-color: var(--secondary-color) !important;
-  border: none !important;
+.progress-and-text {
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  width: 100%; 
 }
-
-.filtering-btn:hover {
-  background-color: var(--secondary-color-hover) !important;
+.progress-and-text .progress {
+  flex-grow: 1;
+  max-width: calc(100% - 60px); 
+  height: 12px; 
 }
-
-.filtering-btn:active {
-  background-color: var(--secondary-color-active) !important;
+.progress-percentage {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #333; 
+  text-align: right;
 }

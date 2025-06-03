@@ -20,8 +20,11 @@ export default function CampaignsList() {
                   <p className='mb-3'>
                     <strong>Meta:</strong> R$ 10.000 <strong>Arrecadado:</strong> R$ 3.200
                   </p>
-                  <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                    <div className="progress-bar w-25"></div>
+                  <div className="progress-and-text">
+                    <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                      <div className="progress-bar" style={{ width: '25%' }}></div>
+                    </div>
+                    <span className="progress-percentage">25%</span>
                   </div>
                 </div>
               </div>
