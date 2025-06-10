@@ -1,0 +1,27 @@
+:root {
+  --primary-color: #0F373F;
+  --secondary-color: #376A63;
+  --secondary-color-hover: #34645e;
+  --secondary-color-active: #2c5550;
+  --piggy-icon-color: #D8A7B1;
+}
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+}
+
+
+.top-navbar{
+  background: var(--primary-color);
+}
+.top-navbar .nav-item .nav-link, .navbar-brand {
+  color: whitesmoke !important;
+}
+.top-navbar .nav-item .nav-link:hover {
+  text-decoration: underline;
+  text-decoration-color: white;
+}
