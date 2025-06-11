@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04/06/2025 às 16:17
+-- Tempo de geração: 11/06/2025 às 15:53
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -94,17 +94,21 @@ INSERT INTO `entidades` (`id`, `nome`, `fk_endereco`, `email`, `senha`, `criado_
 
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
-  `name` varchar(80) NOT NULL
+  `name` varchar(80) NOT NULL,
+  `tel` varchar(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `cpf` varchar(11) NOT NULL,
+  `senha` varchar(72) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `users` (`id`, `name`) VALUES
-(1, 'Mateus Almeida'),
-(2, 'Caio David Urano de Carvalho'),
-(3, 'Pamela Frota de Araújo');
+INSERT INTO `users` (`id`, `name`, `tel`, `email`, `cpf`, `senha`) VALUES
+(1, 'Mateus Almeida', '', '', '', ''),
+(2, 'Caio David Urano de Carvalho', '', '', '', ''),
+(3, 'Pamela Frota de Araújo', '85999625602', 'pamelafrota@email.com', '00055166612', 'admin');
 
 --
 -- Índices para tabelas despejadas

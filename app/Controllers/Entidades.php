@@ -14,4 +14,14 @@ class Entidades extends ResourceController {
 
         return $this->respond($data);
     }
+
+    public function show($id = null){
+        $entidade = $this->model->find($id);
+
+        if($entidade){
+            return $this->respond($entidade);
+        }
+
+        return $this->failNotFound("Entidade não encontrada");
+    }
 }

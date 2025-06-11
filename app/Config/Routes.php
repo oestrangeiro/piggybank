@@ -12,5 +12,7 @@ $routes->resource('users');
 $routes->resource('campanhas');
 $routes->resource('entidades');
 
-// debug
-//$routes->get('campanhas', 'Campanhas::index');
+// Rotas com parametros
+$routes->resource('users', [App\Controllers\Users::class, 'show']);
+$routes->resource('campanhas', [App\Controllers\Campanhas::class, 'show']);
+$routes->resource('entidades', [App\Controllers\Entidades::class, 'show']);

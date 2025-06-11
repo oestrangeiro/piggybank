@@ -16,4 +16,14 @@ class Users extends ResourceController {
 
         //return $this->respond($this->model->findAll);
     }
+
+    public function show($id = null){
+        $usuario = $this->model->find($id);
+
+        if($usuario){
+            return $this->respond($usuario);
+        }
+
+        return $this->failNotFound("Usuário não encontrado");
+    }
 }
