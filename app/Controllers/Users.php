@@ -25,7 +25,7 @@ class Users extends ResourceController {
     // Método que retorna todos os usuários na api
     public function index(){
 
-        $data = $this->model->findAll();
+        $data = $this->model->select('name, email')->findAll();
 
         return $this->respond($data);
         
@@ -172,7 +172,8 @@ class Users extends ResourceController {
     // Método para sanitizar/escapar uma entrada genérica como nomes
     private function escapeEntry(string $data): string {
         // Remove números e caracteres especiais
-        $dataEscaped = preg_replace('/[^a-zA-Z ]/', '', $data);
+        
+        $dataEscaped = preg_replace('/[^\p{L} ]/u', '', $data);
 
         // Evita XSS
         $dataEscaped = htmlspecialchars($dataEscaped, ENT_QUOTES, 'UTF-8');
