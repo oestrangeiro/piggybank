@@ -1,6 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use Config\App;
 
 /**
  * @var RouteCollection $routes
@@ -8,11 +9,17 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 // Rotas da api
-$routes->resource('users');
-$routes->resource('campanhas');
-$routes->resource('entidades');
+$routes->get('users', 'Users::index');
+$routes->get('campanhas', 'Campanhas::index');
+$routes->get('entidades', 'Entidades::index');
 
 // Rotas com parametros
-$routes->resource('users', [App\Controllers\Users::class, 'show']);
-$routes->resource('campanhas', [App\Controllers\Campanhas::class, 'show']);
-$routes->resource('entidades', [App\Controllers\Entidades::class, 'show']);
+$routes->get('users/(:num)', 'Users::show/$1');
+$routes->get('campanhas/(:num)', 'Campanhas::show/$1');
+$routes->get('entidades/(:num)', 'Entidades::show/$1');
+
+// Rotas POST
+// Cria o usuário no banco
+// O que vai ocorrer é o frontend criar um formulario com o method POST
+// e o target sendo a rota da api
+$routes->post('users/create', 'Users::create');
