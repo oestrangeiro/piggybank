@@ -35,7 +35,7 @@ class Users extends ResourceController {
     // ex.: api/users/1
     // retorna o usuário de id 1
     public function show($id = null){
-        $usuario = $this->model->find($id);
+        $usuario = $this->model->select('name, email')->find($id);
 
         if($usuario){
             return $this->respond($usuario);
