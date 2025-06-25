@@ -17,6 +17,9 @@ $routes->get('entidades', 'Entidades::index');
 $routes->get('users/(:num)', 'Users::show/$1');
 $routes->get('campanhas/(:num)', 'Campanhas::show/$1');
 $routes->get('entidades/(:num)', 'Entidades::show/$1');
+// Rota para servir a imagem para o front end
+$routes->get('uploads/img/pfp/(:any)', 'Image::profile/$1');
+
 
 // Rotas POST
 // Cria o usuário no banco

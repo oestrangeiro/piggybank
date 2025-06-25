@@ -25,9 +25,17 @@ class Users extends ResourceController {
     // Método que retorna todos os usuários na api
     public function index(){
 
-        $data = $this->model->select('name, email')->findAll();
+        $allUsers = $this->model->select('name, email, pfp_img')->findAll();
 
-        return $this->respond($data);
+        // tentando servir a foto
+        foreach($allUsers as &$user){
+                if($user['pfp_img']){
+                $pfpName = basename($user['pfp_img']);
+                $user['pfp_img_serve'] = base_url('uploads/img/pfp/' . $pfpName);
+            }
+        }
+
+        return $this->respond($allUsers);
         
     }
 
@@ -53,6 +61,32 @@ class Users extends ResourceController {
         $password   = $this->request->getPost('password');
         $tel        = $this->request->getPost('phone');
         $cpf        = $this->request->getPost('cpf');
+        $pfpImg     = $this->request->getFile('pfpImg'); // Recebe uma imagem
+
+        $useDefaultProfilePicture = 0;
+
+        // Checa se o usuário enviou uma imagem personalizada ou não na criação da conta
+        if(!$pfpImg || $pfpImg->getError()){
+            // Caso ele não tenha enviado uma imagem própria,
+            // acabo usando uma imagem padrão
+            !$useDefaultProfilePicture;
+        }
+
+        // verifica se é uma imagem permitida
+        $tiposImg = ['image/jpeg', 'image/jpg', 'image/png'];
+        $mime = $pfpImg->getMimeType();
+
+        if(!in_array($mime, $tiposImg)){
+            return $this->response->setJSON(['error' => 'Tipo de imagem inválida!']);
+        }
+
+        // Gerar um nome unico para a imagem
+        $newPfpName = $pfpImg->getRandomName();
+        
+        // move a foto pro diretorio
+        $pfpImg->move(WRITEPATH . 'uploads/img/pfp', $newPfpName);
+        // Cria o caminho relativo para acessar a foto
+        $pfpUserPath = 'uploads/img/pfp/' . $newPfpName;
 
         // se os dados não tiverem sido enviados corretamente
         // retorna um erro nessa porra
@@ -120,9 +154,10 @@ class Users extends ResourceController {
             'tel'   => $tel,
             'email' => $email,
             'cpf'   => $cpf,
-            'senha' => $passwordEnc
+            'senha' => $passwordEnc,
+            'pfp_img' => $newPfpName
         ];
-        
+
         // Inserção do usuário no banco de dados
         
         if($this->userModel->insert($userData)){
