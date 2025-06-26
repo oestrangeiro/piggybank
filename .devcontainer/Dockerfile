@@ -1,5 +1,5 @@
 # Base com PHP 8 e suporte a libssl1.1 (Ubuntu 20.04)
-FROM php:8.2-apache
+FROM php:8.2-apache-bullseye
 
 # Instala dependências básicas + libssl1.1 + MariaDB client
 RUN apt-get update && apt-get install -y \
