@@ -1,0 +1,17 @@
+{
+  "name": "CI4 Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [8080, 3306],
+  "postCreateCommand": "composer install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "felixfbecker.php-debug",
+        "xdebug.php-pack",
+        "bmewburn.vscode-intelephense-client"
+      ]
+    }
+  }
+}
