@@ -74,7 +74,7 @@ class Users extends ResourceController {
         // Verifica se o usuário mandou uma imagem próoria
         // ou se optou por escolher uma imagem default
         $useDefaultProfilePicture = $this->useDefaultPfp($pfpImg);
-        print_r($useDefaultProfilePicture);
+       
 
         // Caso tenha sido enviada uma imagem pessoal
         // Salvo o nome da imagem no banco
@@ -163,7 +163,7 @@ class Users extends ResourceController {
             'email' => $email,
             'cpf'   => $cpf,
             'senha' => $passwordEnc,
-            'pfp_img' => NULL
+            'pfp_img' => $newPfpName
         ];
 
         // if($useDefaultProfilePicture){
