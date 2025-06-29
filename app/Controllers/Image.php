@@ -18,6 +18,24 @@ class Image extends ResourceController {
             return $this->failNotFound('Imagem não encontrada!');
         }
 
+        // dps eu documento isso aí
+        
+        $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $fileInfo->file($path);
+
+        return $this->response
+            ->setHeader('Content-Type', $mimeType)
+            ->setBody(file_get_contents($path));
+    }
+
+    public function defaultProfilePicture(){
+        $path = base_url('img/default/default_pfp.png');
+        
+
+        if(!is_file($path)){
+            return $this->failNotFound('Imagem padrão não encontrada!');
+        }
+
         $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
         $mimeType = $fileInfo->file($path);
 

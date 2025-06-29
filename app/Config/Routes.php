@@ -19,6 +19,8 @@ $routes->get('campanhas/(:num)', 'Campanhas::show/$1');
 $routes->get('entidades/(:num)', 'Entidades::show/$1');
 // Rota para servir a imagem para o front end
 $routes->get('uploads/img/pfp/(:any)', 'Image::profile/$1');
+// Serve a imagem de perfil padrão
+$routes->get('public/img/default/default_pfp.png', 'Image::defaultProfilePicture/$1');
 
 
 // Rotas POST

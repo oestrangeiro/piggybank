@@ -11,6 +11,7 @@ class Users extends ResourceController {
     protected $modelName = 'App\Models\UserModel';
     protected $format = 'json';
     protected $userModel;
+    protected $defaultPfp;
 
 
     // Algumas constantes
@@ -20,21 +21,23 @@ class Users extends ResourceController {
     // construtor para injeção
     public function __construct(){
         $this->userModel = new UserModel();
+
+        $this->defaultPfp = base_url('img/default/default_pfp.png');
     }
 
     // Método que retorna todos os usuários na api
     public function index(){
 
-        $allUsers = $this->model->select('name, email, pfp_img')->findAll();
+        $allUsers = $this->model->select('id, name, email, pfp_img')->findAll();
 
-        // tentando servir a foto
+        // Verifica se o usuario enviou uma foto de perfil personalizada
         foreach($allUsers as &$user){
-                if($user['pfp_img']){
+            if($user['pfp_img'] != NULL){
                 $pfpName = basename($user['pfp_img']);
                 $user['pfp_img_serve'] = base_url('uploads/img/pfp/' . $pfpName);
             }
         }
-
+    
         return $this->respond($allUsers);
         
     }
@@ -43,10 +46,15 @@ class Users extends ResourceController {
     // ex.: api/users/1
     // retorna o usuário de id 1
     public function show($id = null){
-        $usuario = $this->model->select('name, email')->find($id);
+        $user = $this->model->select('name, email, pfp_img')->find($id);
 
-        if($usuario){
-            return $this->respond($usuario);
+        //servindo a foto do unico usuário
+        if($user){
+            if($user['pfp_img']){
+                $pfpName = basename($user['pfp_img']);
+                $user['pfp_img_serve'] = base_url('uploads/img/pfp/' . $pfpName);
+            }
+            return $this->respond($user);
         }
 
         return $this->failNotFound("Usuário não encontrado");
@@ -62,31 +70,31 @@ class Users extends ResourceController {
         $tel        = $this->request->getPost('phone');
         $cpf        = $this->request->getPost('cpf');
         $pfpImg     = $this->request->getFile('pfpImg'); // Recebe uma imagem
-
-        $useDefaultProfilePicture = 0;
-
-        // Checa se o usuário enviou uma imagem personalizada ou não na criação da conta
-        if(!$pfpImg || $pfpImg->getError()){
-            // Caso ele não tenha enviado uma imagem própria,
-            // acabo usando uma imagem padrão
-            !$useDefaultProfilePicture;
-        }
-
-        // verifica se é uma imagem permitida
-        $tiposImg = ['image/jpeg', 'image/jpg', 'image/png'];
-        $mime = $pfpImg->getMimeType();
-
-        if(!in_array($mime, $tiposImg)){
-            return $this->response->setJSON(['error' => 'Tipo de imagem inválida!']);
-        }
-
-        // Gerar um nome unico para a imagem
-        $newPfpName = $pfpImg->getRandomName();
         
-        // move a foto pro diretorio
-        $pfpImg->move(WRITEPATH . 'uploads/img/pfp', $newPfpName);
-        // Cria o caminho relativo para acessar a foto
-        $pfpUserPath = 'uploads/img/pfp/' . $newPfpName;
+        // Verifica se o usuário mandou uma imagem próoria
+        // ou se optou por escolher uma imagem default
+        $useDefaultProfilePicture = $this->useDefaultPfp($pfpImg);
+        print_r($useDefaultProfilePicture);
+
+        // Caso tenha sido enviada uma imagem pessoal
+        // Salvo o nome da imagem no banco
+        if($useDefaultProfilePicture == false){
+
+            // verifica se é uma imagem permitida
+            $tiposImg = ['image/jpeg', 'image/jpg', 'image/png'];
+            $mime = $pfpImg->getMimeType();
+
+            if(!in_array($mime, $tiposImg)){
+                return $this->response->setJSON(['error' => 'Tipo de imagem inválida!']);
+            }
+
+            // Gerar um nome unico para a imagem
+            $newPfpName = $pfpImg->getRandomName();
+            
+            // move a foto pro diretorio
+            $pfpImg->move(WRITEPATH . 'uploads/img/pfp', $newPfpName);
+        }
+        
 
         // se os dados não tiverem sido enviados corretamente
         // retorna um erro nessa porra
@@ -155,8 +163,12 @@ class Users extends ResourceController {
             'email' => $email,
             'cpf'   => $cpf,
             'senha' => $passwordEnc,
-            'pfp_img' => $newPfpName
+            'pfp_img' => NULL
         ];
+
+        // if($useDefaultProfilePicture){
+        //     $userData['pfp_img'] = $this->defaultPfp;
+        // }
 
         // Inserção do usuário no banco de dados
         
@@ -283,5 +295,21 @@ class Users extends ResourceController {
 
         return true;
 
+    }
+
+    // Método que verifica se o usuário enviou uma imagem
+    private function useDefaultPfp($profilePicture): bool {
+
+        $useDefaultProfilePicture = false;
+
+        // Checa se o usuário enviou uma imagem personalizada ou não na criação da conta
+        if(!$profilePicture || $profilePicture->getError()){
+            // Caso ele não tenha enviado uma imagem própria,
+            // acabo usando uma imagem padrão
+            $useDefaultProfilePicture = true;
+        }
+        // Se não tiver mandado a imagem: retorna 1
+        // Se tiver mandado, retorna 0
+        return $useDefaultProfilePicture;
     }
 }
