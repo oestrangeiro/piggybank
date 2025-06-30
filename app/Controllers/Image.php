@@ -28,8 +28,8 @@ class Image extends ResourceController {
             ->setBody(file_get_contents($path));
     }
 
-    public function defaultProfilePicture(){
-        $path = base_url('img/default/default_pfp.png');
+    public function defaultProfilePicture($fileName = null){
+        $path = base_url('img/default/' . $fileName);
         
 
         if(!is_file($path)){
