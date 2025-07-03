@@ -1,6 +1,6 @@
 import earthImage from '../../assets/earth.jpg';
 import GeoIcon from '../../assets/geo.svg?react';
-import ProgressBar from '../CampaignProgressBar';
+import ProgressBar from './CampaignProgressBar';
 import {useRef, useEffect, useState} from 'react';
 import axios from 'axios';
 
@@ -63,7 +63,7 @@ export default function CampaignsList() {
                 <img src={earthImage} alt="Earth" />
               </div>
               <div className="campaign-info">
-                <h5>{camp.titulo}</h5>
+                <h4>{camp.titulo}</h4>
                 <p className="text-muted"> <GeoIcon/> Entidade X • Localização</p>
                 <p>{camp.descricao}</p>
                 <div className='donation-progress mt-2'>
