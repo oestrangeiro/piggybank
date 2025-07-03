@@ -1,17 +1,10 @@
 import earthImage from '../../assets/earth.jpg';
 import GeoIcon from '../../assets/geo.svg?react';
 import ProgressBar from '../CampaignProgressBar';
-import {useRef, useEffect, useState} from 'react';
-import axios from 'axios';
+import {useRef, useEffect} from 'react';
 
 export default function CampaignsList() {
-  const [campanhas, setCampanhas] = useState(null);
-  const [erro, setErro] = useState(null);
-  const [carregando, setCarregando] = useState(true);
-
   const listRef = useRef(null);
-
-  const URL = 'http://localhost/piggybank/backend/public/campanhas'
 
   const handleScroll = () => {
     const list = listRef.current;
@@ -27,18 +20,6 @@ export default function CampaignsList() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-            try {
-                const response = await axios.get(URL);
-                setCampanhas(response.data);
-            } catch (err) {
-                console.error('Erro ao buscar dados:', err);
-                setErro('Não foi possível carregar os dados. Verifique o console.');
-            } finally {
-                setCarregando(false);
-            }
-        };
-    fetchData()
     const list = listRef.current;
     if (list) {
       list.addEventListener('scroll', handleScroll);
@@ -48,29 +29,26 @@ export default function CampaignsList() {
         list.removeEventListener('scroll', handleScroll);
       }
     };
-  }, []);
-
-    if (carregando) return <p>Carregando dados da API...</p>;
-    if (erro) return <p style={{ color: 'red' }}>{erro}</p>;
+  }, [])
 
     return (
         <div className="campaigns-list" ref={listRef}>
           {
-          campanhas.map((camp, index) => (
+          [1, 2, 3, 4, 5, 6].map((camp, index) => (
           <div className="campaign-container" key={index}>
             <div className="campaign-content">
               <div className="campaign-image">
                 <img src={earthImage} alt="Earth" />
               </div>
               <div className="campaign-info">
-                <h5>{camp.titulo}</h5>
+                <h5>Título da Campanha</h5>
                 <p className="text-muted"> <GeoIcon/> Entidade X • Localização</p>
-                <p>{camp.descricao}</p>
+                <p>Descrição da campanha</p>
                 <div className='donation-progress mt-2'>
                   <p>
-                    <strong>Meta:</strong> R$ {camp.meta} <strong>Arrecadado:</strong> R$ {camp.recebido}
+                    <strong>Meta:</strong> R$ 10000 <strong>Arrecadado:</strong> R$ 4000
                   </p>
-                  <ProgressBar meta={camp.meta} arrecadado={camp.recebido} />
+                  <ProgressBar meta={10000} arrecadado={4000} />
                 </div>
               </div>
             </div>
