@@ -1,5 +1,4 @@
 import { Button, Form, InputGroup } from 'react-bootstrap';
-//import PictureIcon from '../assets/picture.svg?react';
 import {CampaignsList, ScrollTopButton} from '../components/index';
 
 

@@ -1,6 +1,5 @@
 import './styles/index.css';
 import './styles/Campaigns.css';
-//import './styles/pagina-tal.css';
 import { Header, Footer} from './components';
 import { Routes, Route } from 'react-router-dom';
 import { Campaigns, Announce, Support } from './pages';
@@ -28,4 +27,3 @@ function App() {
 }
 
 export default App;
-

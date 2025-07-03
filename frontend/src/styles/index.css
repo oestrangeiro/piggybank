@@ -12,5 +12,8 @@ body {
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
+  max-width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 

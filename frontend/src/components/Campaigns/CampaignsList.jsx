@@ -1,31 +1,76 @@
 import earthImage from '../../assets/earth.jpg';
 import GeoIcon from '../../assets/geo.svg?react';
-
+import ProgressBar from './CampaignProgressBar';
+import {useRef, useEffect, useState} from 'react';
+import axios from 'axios';
 
 export default function CampaignsList() {
+  const [campanhas, setCampanhas] = useState(null);
+  const [erro, setErro] = useState(null);
+  const [carregando, setCarregando] = useState(true);
+
+  const listRef = useRef(null);
+
+  const URL = 'http://localhost/piggybank/backend/public/campanhas'
+
+  const handleScroll = () => {
+    const list = listRef.current;
+    if (list) {
+      const isAtBottom = list.scrollHeight - list.scrollTop <= list.clientHeight + 1;
+      if (isAtBottom) {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+            try {
+                const response = await axios.get(URL);
+                setCampanhas(response.data);
+            } catch (err) {
+                console.error('Erro ao buscar dados:', err);
+                setErro('Não foi possível carregar os dados. Verifique o console.');
+            } finally {
+                setCarregando(false);
+            }
+        };
+    fetchData()
+    const list = listRef.current;
+    if (list) {
+      list.addEventListener('scroll', handleScroll);
+    }
+    return () => {
+      if (list) {
+        list.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
+    if (carregando) return <p>Carregando dados da API...</p>;
+    if (erro) return <p style={{ color: 'red' }}>{erro}</p>;
+
     return (
-        <div className="campaigns-list">
+        <div className="campaigns-list" ref={listRef}>
           {
-          [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13].map((item, index) => (
+          campanhas.map((camp, index) => (
           <div className="campaign-container" key={index}>
             <div className="campaign-content">
               <div className="campaign-image">
                 <img src={earthImage} alt="Earth" />
               </div>
               <div className="campaign-info">
-                <h4>Título da Campanha</h4>
-                <p className="text-muted my-1"> <GeoIcon/> Entidade X • Localização</p>
-                <p>Descrição curta da campanha...</p>
+                <h4>{camp.titulo}</h4>
+                <p className="text-muted"> <GeoIcon/> Entidade X • Localização</p>
+                <p>{camp.descricao}</p>
                 <div className='donation-progress mt-2'>
-                  <p className='mb-3'>
-                    <strong>Meta:</strong> R$ 10.000 <strong>Arrecadado:</strong> R$ 3.200
+                  <p>
+                    <strong>Meta:</strong> R$ {camp.meta} <strong>Arrecadado:</strong> R$ {camp.recebido}
                   </p>
-                  <div className="progress-and-text">
-                    <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                      <div className="progress-bar" style={{ width: '25%' }}></div>
-                    </div>
-                    <span className="progress-percentage">25%</span>
-                  </div>
+                  <ProgressBar meta={camp.meta} arrecadado={camp.recebido} />
                 </div>
               </div>
             </div>
