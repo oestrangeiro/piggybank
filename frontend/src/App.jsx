@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Header, Footer, Carousel } from "./components/index.js";
 import Body from "./pages/Body";
 import News from "./pages/News";
-import "./styles/Campaigns.css";
+import "./styles/CampaignsPage.css";
+import './styles/Homepage.css';
 import "./styles/index.css";
 import { Campaigns, Announce, Support } from "./pages";
 

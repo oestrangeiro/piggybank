@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import logo from "../assets/pb logo.png";
 import { Link } from "react-router-dom";
-import "../styles/Homepage.css";
 
 function Header() {
   const [hideNav, setHideNav] = useState(false);
