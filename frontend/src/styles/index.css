@@ -1,0 +1,21 @@
+:root {
+  --primary-color: #0f373f;
+  --secondary-color: #376a63;
+  --secondary-color-hover: #34645e;
+  --secondary-color-active: #2c5550;
+  --piggy-icon-color: #d8a7b1;
+  background-color: rgb(217, 217, 217);
+}
+html,
+body {
+  height: 0%;
+}
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  flex-direction: column;
+  display: flex;
+}
+
+

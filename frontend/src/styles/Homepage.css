@@ -1,0 +1,67 @@
+#div1 {
+  position: relative;
+  height: 850px;
+  overflow: hidden;
+  color: white;
+}
+
+#div1 .overlay {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(65%);
+  z-index: 0;
+}
+
+#div1 > .content {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #ffffff !important;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff !important;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+#pb {
+  opacity: 1;
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+#pb.hidden {
+  opacity: 0;
+  transform: translateY(-50px);
+  pointer-events: none;
+}
+#carouselNoticias {
+  scale: 1;
+  transition: 600ms ease-in-out;
+  opacity: 1;
+}
+#carouselNoticias:hover {
+  scale: 1.05;
+  transition: 300ms ease-in-out;
+}
+#carouselNoticias.hidden {
+  opacity: 0;
+  transform: translateY(50px);
+  pointer-events: none;
+}
+#nav {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  z-index: 1000;
+}
+#nav.hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
