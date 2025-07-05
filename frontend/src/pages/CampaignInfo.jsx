@@ -43,12 +43,15 @@ function CampaignInfo() {
                     className="principalInfoPanelPrgBar w-100 mb-2"
                 />
                 <h5
-                style={{fontSize: '20px', fontWeight: '600', color: 'var(--primary-color)'}}
+                    style={{fontSize: '20px', fontWeight: '600', 
+                        color: 'var(--primary-color)', marginBottom:'0'}}
                 >
                     Arrecadado:
                 </h5>
-                <p
-                style={{fontWeight:'1000', fontSize: '32px', color: 'var(--secondary-color)'}}
+                <p  
+                    className="m-0"
+                    style={{fontWeight:'1000', fontSize: '32px', 
+                        color: 'var(--secondary-color)'}}
                 >
                     R$ 500
                 </p>

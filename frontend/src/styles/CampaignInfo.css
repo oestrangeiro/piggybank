@@ -3,8 +3,9 @@
     width: 85%;
     height: 347px;
     border-radius: 5%;
-    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.250);
-
+    box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.25), 
+        4px 0px 3px rgba(0, 0, 0, 0.25), 
+        -4px 0px 3px rgba(0, 0, 0, 0.25);
 }
 
 
@@ -18,6 +19,11 @@
     font-weight: 400;
     font-size: 14px;
     color: var(--gray-color);
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+#principalInfoPanelSubtitles p {
+    margin-bottom: 10px;
 }
 .principalInfoPanelHr {
     width: 100%;
@@ -41,7 +47,9 @@
     background-color: var(--secondary-color);
     border: none;
     border-radius: 15px;
-    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.250);
+    box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.25), 
+        4px 0px 3px rgba(0, 0, 0, 0.25), 
+        -4px 0px 3px rgba(0, 0, 0, 0.25);
     color: white;
     font-size: 20px;
     font-weight: 900;
