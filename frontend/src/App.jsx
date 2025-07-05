@@ -3,9 +3,10 @@ import { Header, Footer, Carousel } from "./components/index.js";
 import Body from "./pages/Body";
 import News from "./pages/News";
 import "./styles/CampaignsPage.css";
+import './styles/CampaignInfo.css';
 import './styles/Homepage.css';
 import "./styles/index.css";
-import { Campaigns, Announce, Support } from "./pages";
+import { Campaigns, CampaignInfo, Announce, Support } from "./pages";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/campanhas" element={<Campaigns />} />
           <Route path="/divulgue" element={<Announce />} />
           <Route path="/suporte" element={<Support />} />
+          <Route path="/campanha/:id" element={<CampaignInfo />} />
         </Routes>
       </main>
       <Footer />

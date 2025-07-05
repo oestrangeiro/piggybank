@@ -1,0 +1,57 @@
+.campaignInfoImage {
+    width: 593px;
+    width: 85%;
+    height: 347px;
+    border-radius: 5%;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.250);
+
+}
+
+
+.principalInfoPanel h5 {
+    color: var(--primary-color);
+}
+.principalInfoPanelPrgBar {
+    background-color: #ABABAB !important;
+}
+#principalInfoPanelSubtitles {
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--gray-color);
+}
+.principalInfoPanelHr {
+    width: 100%;
+    border: none;
+    height: 2px;
+    background-color: #757575;
+    margin-top: 20px;
+    margin-bottom: 6px;
+}
+#principalInfoPanelDateTime {
+    color: var(--gray-color);
+    font-weight: 500;
+    font-size: 11px;
+}
+#principalInfoPanelDateTime p {
+    margin-bottom: 3px;
+}
+
+
+.wantHelpBtn {
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.250);
+    color: white;
+    font-size: 20px;
+    font-weight: 900;
+    transition: background-color 0.3s ease;
+    padding: 10px 50px;
+    cursor: pointer;
+}
+.wantHelpBtn:hover {
+    background-color: var(--secondary-color-hover);
+}
+.wantHelpBtn:active {
+    background-color: var(--secondary-color-active);
+}

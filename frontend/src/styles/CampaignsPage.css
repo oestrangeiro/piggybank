@@ -87,7 +87,8 @@
 .campaign-info p {
   margin: 2px 0;
 }
-.campaign-info h5, p {
+.campaign-info h5,
+.campaign-info p {
   color: var(--primary-color) !important;
 }
 
