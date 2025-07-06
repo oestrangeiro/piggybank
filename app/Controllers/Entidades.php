@@ -2,16 +2,26 @@
 
 namespace App\Controllers;
 
+use App\Models\EntidadesModel;
 use CodeIgniter\RESTful\ResourceController;
+use App\Traits\Validate;
 
 class Entidades extends ResourceController {
+
+    use Validate; // trait com alguns métodos reutilizáveis
+
     protected $modelName = 'App\Models\EntidadesModel';
     protected $format = 'json';
+    protected $entidadeModel;
+
+    public function __construct(){
+        $this->entidadeModel = new EntidadesModel();
+    }
 
     public function index(){
 
         $data = $this->model
-        ->select('nome, fk_endereco, email, senha, criado_em, alterado_em')
+        ->select('id, nome, fk_endereco, email, senha, created_at, updated_at')
         ->findAll();
         //$data = $this->model->getEnderecoEEntidades();
 
@@ -20,7 +30,7 @@ class Entidades extends ResourceController {
 
     public function show($id = null){
         $entidade = $this->model
-        ->select('nome, fk_endereco, email, senha, criado_em, alterado_em')
+        ->select('nome, fk_endereco, email, senha, created_at, updated_at')
         ->find($id);
 
         if($entidade){
@@ -32,15 +42,60 @@ class Entidades extends ResourceController {
 
     // Método para criar uma entidade
     public function create(){
-        // capturando os valore via POST
+        // capturando os valores via POST
         $name       = $this->request->getPost('name');
+        $email      = $this->request->getPost('email');
         $password   = $this->request->getPost('password');
+        $tel        = $this->request->getPost('tel');
+
+        // Verifico se algum campo veio vazio
+        $someValueEmpty = $this->isSomeValueNull([$name, $password, $email, $tel]);
+
+        if($someValueEmpty){
+            return $this->response->setJSON(['error' => 'Um ou mais campos vazios!']);
+        }
+
+        // Validações
+        // NOME
+        $name   = $this->escapeEntry($name);
+
+        // EMAIL
+        $email  = $this->sanitizeEmail($email);
+
+        if(!$this->isThisEmailValid($email)){
+            return $this->response->setJSON(['error' => 'Email inválido!']);
+        }
+
+        // SENHA
+        $password = $this->removeSpaces($password);
+        
+        if(!$this->isThisPasswordValid($password)){
+            return $this->response->setJSON(['error' => 'Senha inválida!']);
+        }
+
+        // Hasheando a senha
+        $passwordEnc = password_hash($password, PASSWORD_BCRYPT);
+
+        // TELEFONE
+        $tel = $this->sanitizePhoneNumber($tel);
+
+        if(!$this->validatePhoneNumber($tel)){
+            return $this->response->setJSON(['error' => 'Telefone inválido!']);
+        }
 
         $entidadeData = [
-            'nome'      => $name,
-            'password'  => $password,
+            'nome'   => $name,
+            'email'  => $email,
+            'senha'  => $passwordEnc,
+            'tel'    => $tel
         ];
 
-        return $this->respond($entidadeData);
+        // adicionando no banco
+
+        if($this->entidadeModel->insert($entidadeData)){
+            return $this->response->setJSON(['success' => 'Entidade inserida com sucesso!']);
+        }else{
+            return $this->response->setJSON(['error' => 'Erro ao inserir entidade!']);
+        }
     }
 }

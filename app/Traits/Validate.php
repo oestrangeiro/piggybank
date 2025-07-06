@@ -81,6 +81,13 @@ trait Validate {
 
     // Método para validar número de telefone
     public function validatePhoneNumber(string $phoneNumber): bool {
+
+        // se o telefone for menor que 9 ou maior que 11 digitos
+        // é um telefone inválido
+        if( (strlen($phoneNumber) < 9) || (strlen($phoneNumber) > 11) ){
+            return false;
+        }
+
         // Checa se o usuário (mesmo após a sanitização) enviou algum caractere que não número
         return !preg_match('/[^0-9]/', $phoneNumber);
     }

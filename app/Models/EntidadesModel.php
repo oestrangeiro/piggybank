@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class EntidadesModel extends Model{
     protected $table = 'entidades';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['id', 'nome', 'fk_endereco', 'email', 'senha', 'criado_em', 'alterado_em'];
+    protected $allowedFields = ['id', 'nome', 'fk_endereco', 'email', 'senha', 'created_at', 'updated_at'];
     protected $useTimestamps = true;
 
     // CORRIGIR

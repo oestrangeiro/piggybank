@@ -28,5 +28,9 @@ $routes->get('img/default/(:any)', 'Image::defaultProfilePicture/$1');
 // O que vai ocorrer é o frontend criar um formulario com o method POST
 // e o target sendo a rota da api
 $routes->post('users/create', 'Users::create');
+
 // Cria a entidade no banco
 $routes->post('entidades/create', 'Entidades::create');
+
+// Cria a campanha no banco
+$routes->post('campanhas/create', 'Campanhas::create');
