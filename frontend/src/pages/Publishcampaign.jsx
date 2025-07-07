@@ -98,8 +98,8 @@ function PublishCampaign() {
               id="hero-text"
               className={`col-md-6 mt-2 py-5 ${hideHeroText ? "hidden" : ""}`}
             >
-              <h1 className="display-1 mt-3">{body.titleCamp}</h1>
-              <p className="lead text-light">{body.descCamp}</p>
+              <h1 className="display-1 mt-3">Suas campanhas</h1>
+              <p className="lead text-light">Aqui você cria e gerencia suas campanhas!</p>
               <Button
                 onClick={() => window.location.href = "/nova-campanha"}
                 className="btn-new-campaign mt-4"
