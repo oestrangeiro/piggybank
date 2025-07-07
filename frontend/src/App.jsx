@@ -6,7 +6,7 @@ import "./styles/CampaignsPage.css";
 import './styles/CampaignInfo.css';
 import './styles/Homepage.css';
 import "./styles/index.css";
-import { Campaigns, CampaignInfo, Announce, Support } from "./pages";
+import { Campaigns, CampaignInfo, Publishcampaign, Support, Formcampaign } from "./pages";
 
 function App() {
   return (
@@ -25,9 +25,10 @@ function App() {
           />
           <Route path="/news" element={<News />} />
           <Route path="/campanhas" element={<Campaigns />} />
-          <Route path="/divulgue" element={<Announce />} />
+          <Route path="/divulgue" element={<Publishcampaign />} />
           <Route path="/suporte" element={<Support />} />
           <Route path="/campanha/:id" element={<CampaignInfo />} />
+          <Route path="/nova-campanha" element={<Formcampaign />} />
         </Routes>
       </main>
       <Footer />
