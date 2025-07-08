@@ -43,7 +43,7 @@ function Campaigns() {
         </div>
       </section>
 
-      <div className="container py-4">
+      <div className="container-fluid bgsecclr py-4">
         <div className="d-flex justify-content-center mb-4">
           <InputGroup
             className="search-tool"

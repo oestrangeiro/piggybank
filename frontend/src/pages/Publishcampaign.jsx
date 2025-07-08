@@ -4,7 +4,7 @@ import { body } from "../data/data";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import earthImage from "../assets/earth.jpg";
-import GeoIcon from "../assets/geo.svg?react"; 
+import GeoIcon from "../assets/geo.svg?react";
 import "../styles/PublishCampaign.css";
 
 //tera alteracoes com o back, pois ta usando um user do authcontext
@@ -66,42 +66,35 @@ function PublishCampaign() {
 
   // Cálculo % arrecadado
   const porcentagemArrecadado = (campanha) =>
-    Math.min(
-      100,
-      ((campanha.arrecadado / campanha.meta) * 100).toFixed(2)
-    );
+    Math.min(100, ((campanha.arrecadado / campanha.meta) * 100).toFixed(2));
 
   return (
     <>
       <section
-        id="hero-divulgue"
+        id="div1"
         className="d-flex align-items-start bg-dark text-white"
       >
         <div
           className="overlay"
           style={{
             backgroundImage: `url(${body.bg4})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            filter: "brightness(0.5)", // ESCURECIDO
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 0,
           }}
         />
-        <div className="content container-fluid m-5 p-5" style={{ position: "relative", zIndex: 1 }}>
+        <div
+          className="content container-fluid m-5 p-5"
+          style={{ position: "relative", zIndex: 1 }}
+        >
           <div className="row py-5 mt-5">
             <div
               id="hero-text"
               className={`col-md-6 mt-2 py-5 ${hideHeroText ? "hidden" : ""}`}
             >
               <h1 className="display-1 mt-3">Suas campanhas</h1>
-              <p className="lead text-light">Aqui você cria e gerencia suas campanhas!</p>
+              <p className="lead text-light">
+                Aqui você cria e gerencia suas campanhas!
+              </p>
               <Button
-                onClick={() => window.location.href = "/nova-campanha"}
+                onClick={() => (window.location.href = "/nova-campanha")}
                 className="btn-new-campaign mt-4"
                 variant="outline-success"
               >
@@ -165,8 +158,8 @@ function PublishCampaign() {
         <div className="delete-modal-overlay">
           <div className="delete-modal">
             <p className="fw-bold mb-3">
-              Tem certeza que quer apagar a campanha "
-              {campanhaToDelete.titulo}"?
+              Tem certeza que quer apagar a campanha "{campanhaToDelete.titulo}
+              "?
             </p>
             <div className="d-flex justify-content-between">
               <Button

@@ -1,7 +1,6 @@
-import { useRef, useContext, useState } from "react";
+import { useRef, useContext, useState, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "../styles/FormCampaign.css";
 
 //tera alteracoes com o back, pois ta usando um user do authcontext
 
@@ -20,7 +19,7 @@ export default function NovaCampanha() {
 
     const formData = new FormData(form.current);
 
-  //INTEGRAR AINDA
+    //INTEGRAR AINDA
 
     console.log("Dados da campanha:", Object.fromEntries(formData));
 
@@ -47,6 +46,18 @@ export default function NovaCampanha() {
     setImagemPreview(url);
   };
 
+  const [hidePB, setHidePB] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setHidePB(scrollTop > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="nova-campanha-page">
       {sucesso && (
@@ -57,7 +68,12 @@ export default function NovaCampanha() {
         </div>
       )}
 
-      <div className="mt-5 container d-flex flex-column align-items-center justify-content-center">
+      <div
+        id="pb"
+        className={`mt-5 container d-flex flex-column align-items-center justify-content-center ${
+          hidePB ? "hidden" : ""
+        }`}
+      >
         <div className="form-header text-center">
           <h2 className="fw-bold">Divulgue sua Campanha</h2>
           <p className="text">Compartilhe sua causa conosco</p>
@@ -114,8 +130,12 @@ export default function NovaCampanha() {
 
             {/* Imagem com botões estilo original */}
             <div className="mb-3">
-              <label className="form-label">Imagem:</label>
-              <div className="btn-group mb-2" role="group" aria-label="Tipo de imagem">
+              <label className="form-label">Imagem: </label>
+              <div
+                className="btn-group mb-2"
+                role="group"
+                aria-label="Tipo de imagem"
+              >
                 <input
                   type="radio"
                   className="btn-check"
@@ -128,7 +148,10 @@ export default function NovaCampanha() {
                     setImagemPreview(null);
                   }}
                 />
-                <label className="btn btn-outline-primary" htmlFor="uploadRadio">
+                <label
+                  className="btn btn-outline-primary"
+                  htmlFor="uploadRadio"
+                >
                   Upload
                 </label>
 
@@ -193,7 +216,7 @@ export default function NovaCampanha() {
             <div className="text-center">
               <button
                 type="submit"
-                className="btn btn-success w-100 shadow"
+                className="btn-login w-100 rounded p-2 shadow"
               >
                 Publicar Campanha
               </button>

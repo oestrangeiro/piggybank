@@ -16,9 +16,9 @@ function Carousel() {
   }, []);
 
   return (
-    <section className="py-5 text-dark">
+    <section className="py-5 text-dark bgsecclr">
       <div className="container">
-        <h2 className="mb-4 text-center">{carousel.title}</h2>
+        <h2 className="mb-4 txtmainclr text-center">{carousel.title}</h2>
 
         <div
           id="carouselNoticias"
@@ -28,7 +28,9 @@ function Carousel() {
           <div className="carousel-inner">
             {carousel.car.map((item, i) => (
               <div
-                className={`carousel-item ${i === 0 ? "active" : ""}`}
+                className={`carousel-item txtmainclr ${
+                  i === 0 ? "active" : ""
+                }`}
                 key={i}
               >
                 <div className="row justify-content-center align-items-center">

@@ -4,8 +4,9 @@
   --secondary-color-hover: #34645e;
   --secondary-color-active: #2c5550;
   --piggy-icon-color: #d8a7b1;
-  --gray-color: #5A5A5A;
+  --gray-color: #5a5a5a;
   background-color: rgb(217, 217, 217);
+  --bg-secondary-color: rgb(217, 217, 217);
 }
 html,
 body {
@@ -18,5 +19,33 @@ body {
   flex-direction: column;
   display: flex;
 }
-
-
+.btn-login {
+  background-color: var(--secondary-color);
+  color: white;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+.btn-login:hover {
+  background-color: var(--bg-secondary-color);
+}
+.txtmainclr {
+  color: var(--secondary-color-active);
+}
+.bgmainclr {
+  background-color: var(--primary-color);
+}
+.bgsecclr {
+  background-color: var(--bg-secondary-color);
+}
+#nav {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  z-index: 1000;
+}
+#nav.hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}

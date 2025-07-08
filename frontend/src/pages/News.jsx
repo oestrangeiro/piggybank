@@ -68,7 +68,7 @@ function News() {
         </div>
       </section>
 
-      <section className="py-5" style={{ color: "rgb(15, 55, 63)" }}>
+      <section className="py-5 txtmainclr">
         <div className="container">
           <p className="text-dark">
             Publicado em {date} • Por {author}

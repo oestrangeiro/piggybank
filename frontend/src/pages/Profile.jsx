@@ -1,11 +1,10 @@
 import { userData } from "../data/data";
 import { body } from "../data/data";
+import { useEffect, useState } from "react";
 
 function Profile() {
   const {
     username,
-    status,
-    avatar,
     since,
     bio,
     email,
@@ -14,6 +13,20 @@ function Profile() {
     activity,
     recentCampaigns,
   } = userData;
+
+  const [avatar, setAvatar] = useState(userData.avatar);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [hidePB, setHidePB] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setHidePB(scrollTop > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -28,7 +41,7 @@ function Profile() {
 
         <div className="content container-fluid m-5 p-5">
           <div className="row mt-5">
-            <div className="col-md-6">
+            <div id="pb" className={`col-md-6 mt-5 ${hidePB ? "hidden" : ""}`}>
               <img
                 src={avatar}
                 className="rounded-circle mb-3"
@@ -37,13 +50,12 @@ function Profile() {
                 height={"200px"}
               />
               <h1 className="display-3">{username}</h1>
-              <p className="lead">{status}</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="p-5">
+      <section className="p-5 bgsecclr">
         <div className="container">
           <div className="row g-4">
             <div className="col-md-4 mt-4">
@@ -53,11 +65,14 @@ function Profile() {
                   style={{ color: "rgb(15, 55, 63)" }}
                 >
                   <h4 className="card-title">{username}</h4>
-                  <p className="text-muted">Usuário desde {since}</p>
+                  <p className="text-muted"> {since}</p>
                   <p>{bio}</p>
-                  <a href="#" className="btn btn-outline-warning w-100 mt-3">
-                    Editar Perfil
-                  </a>
+                  <button
+                    className="btn btn-outline-warning w-100 mt-3"
+                    onClick={() => setShowEditModal(true)}
+                  >
+                    {userData.btn}
+                  </button>
                 </div>
               </div>
             </div>
@@ -68,7 +83,7 @@ function Profile() {
                   className="card-header text-white"
                   style={{ backgroundColor: "rgb(15, 55, 63)" }}
                 >
-                  <strong>Resumo de Atividades</strong>
+                  <strong>{userData.desc}</strong>
                 </div>
                 <div className="card-body">
                   <div className="row text-center">
@@ -93,7 +108,7 @@ function Profile() {
                   className="card-header text-white"
                   style={{ backgroundColor: "rgb(15, 55, 63)" }}
                 >
-                  <strong>Campanhas Recentemente Apoiadas</strong>
+                  <strong>{userData.desc2}</strong>
                 </div>
                 <div className="card-body">
                   <ul className="list-group list-group-flush">
@@ -117,7 +132,7 @@ function Profile() {
                   className="card-header text-white"
                   style={{ backgroundColor: "rgb(15, 55, 63)" }}
                 >
-                  <strong>Preferências do Usuário</strong>
+                  <strong>{userData.desc3}</strong>
                 </div>
                 <div className="card-body">
                   <p>
@@ -136,6 +151,92 @@ function Profile() {
           </div>
         </div>
       </section>
+
+      {showEditModal && (
+        <div
+          className="modal d-block"
+          tabIndex="-1"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div
+                className="modal-header"
+                style={{
+                  backgroundColor: "var(--primary-color)",
+                  color: "white",
+                }}
+              >
+                <h5 className="modal-title">Editar Perfil</h5>
+                <button
+                  type="button"
+                  className="btn-close bg-light"
+                  onClick={() => setShowEditModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <div className="mb-3 text-center">
+                  <img
+                    src={avatar}
+                    alt="Avatar atual"
+                    className="rounded-circle mb-3"
+                    width="100"
+                    height="100"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="form-control mb-3"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setAvatar(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Nome</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={username}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">E-mail</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    defaultValue={email}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Biografia</label>
+                  <textarea
+                    className="form-control"
+                    rows="3"
+                    defaultValue={bio}
+                  ></textarea>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setShowEditModal(false)}
+                >
+                  Cancelar
+                </button>
+                <button className="btn btn-success">Salvar Alterações</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
