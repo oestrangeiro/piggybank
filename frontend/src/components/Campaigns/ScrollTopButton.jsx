@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 
 export default function ScrollToTopButton() {
   const [visible, setVisible] = useState(false);
@@ -7,25 +7,25 @@ export default function ScrollToTopButton() {
     const handleScroll = () => {
       setVisible(window.scrollY > 100);
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
   return (
     <button
-        className='scroll-top-btn'
-        onClick={scrollToTop}
-        style={{
-            display: visible ? 'block' : 'none',
-        }}
+      className="scroll-top-btn"
+      onClick={scrollToTop}
+      style={{
+        display: visible ? "block" : "none",
+        zIndex: 1000,
+      }}
     >
       ↑
     </button>

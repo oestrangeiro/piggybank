@@ -1,82 +1,73 @@
-import earthImage from '../../assets/earth.jpg';
-import GeoIcon from '../../assets/geo.svg?react';
-import ProgressBar from './CampaignProgressBar';
-import {useRef, useEffect, useState} from 'react';
-import axios from 'axios';
+import earthImage from "../../assets/earth.jpg";
+import CampaignCard from "./CampaignCard";
+import { useRef, useEffect, useState } from "react";
 
-export default function CampaignsList() {
-  const [campanhas, setCampanhas] = useState(null);
-  const [erro, setErro] = useState(null);
-  const [carregando, setCarregando] = useState(true);
-
+export default function CampaignsList({withDelete = false}) {
   const listRef = useRef(null);
-
-  const URL = 'http://localhost/piggybank/backend/public/campanhas'
+  const [userCampaigns, setUserCampaigns] = useState([
+        {
+          id: 1,
+          titulo: "A calopsita Nina",
+          local: " Cidade / Estado",
+          meta: 2500,
+          arrecadado: 1000,
+          descricao: "Calopsita com insuficiência renal.",
+          imagem: earthImage,
+          entidade: "Entidade X",
+        },
+        {
+          id: 2,
+          titulo: "Cãozinho Thor",
+          local: "Cidade / Estado",
+          meta: 4000,
+          arrecadado: 2100,
+          descricao: "Tratamento de doença rara.",
+          imagem: earthImage,
+          entidade: "Entidade Y",
+        },
+        {
+          id: 3,
+          titulo: "Gatinha Luna",
+          local: "Cidade / Estado",
+          meta: 3000,
+          arrecadado: 1500,
+          descricao: "Ajuda para cirurgia.",
+          imagem: earthImage,
+          entidade: "Entidade Z",
+        },
+      ]);
 
   const handleScroll = () => {
     const list = listRef.current;
     if (list) {
-      const isAtBottom = list.scrollHeight - list.scrollTop <= list.clientHeight + 1;
+      const isAtBottom =
+        list.scrollHeight - list.scrollTop <= list.clientHeight + 1;
       if (isAtBottom) {
         window.scrollTo({
           top: document.documentElement.scrollHeight,
-          behavior: 'smooth',
+          behavior: "smooth",
         });
       }
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-            try {
-                const response = await axios.get(URL);
-                setCampanhas(response.data);
-            } catch (err) {
-                console.error('Erro ao buscar dados:', err);
-                setErro('Não foi possível carregar os dados. Verifique o console.');
-            } finally {
-                setCarregando(false);
-            }
-        };
-    fetchData()
     const list = listRef.current;
     if (list) {
-      list.addEventListener('scroll', handleScroll);
+      list.addEventListener("scroll", handleScroll);
     }
     return () => {
       if (list) {
-        list.removeEventListener('scroll', handleScroll);
+        list.removeEventListener("scroll", handleScroll);
       }
     };
   }, []);
 
-    if (carregando) return <p>Carregando dados da API...</p>;
-    if (erro) return <p style={{ color: 'red' }}>{erro}</p>;
-
-    return (
-        <div className="campaigns-list" ref={listRef}>
-          {
-          campanhas.map((camp, index) => (
-          <div className="campaign-container" key={index}>
-            <div className="campaign-content">
-              <div className="campaign-image">
-                <img src={earthImage} alt="Earth" />
-              </div>
-              <div className="campaign-info">
-                <h4>{camp.titulo}</h4>
-                <p className="text-muted"> <GeoIcon/> Entidade X • Localização</p>
-                <p>{camp.descricao}</p>
-                <div className='donation-progress mt-2'>
-                  <p>
-                    <strong>Meta:</strong> R$ {camp.meta} <strong>Arrecadado:</strong> R$ {camp.recebido}
-                  </p>
-                  <ProgressBar meta={camp.meta} arrecadado={camp.recebido} />
-                </div>
-              </div>
-            </div>
-          </div>
-        ))
-        }
-        </div>
-    )
+  return (
+    <div className="campaigns-list my-5" ref={listRef}>
+      {userCampaigns.map((camp) => 
+        <CampaignCard campanha={camp} withDelete={withDelete} key={camp.id}/>
+      )}
+    </div>
+  );
 }

@@ -1,0 +1,27 @@
+#cadastro-btn {
+  background-color: var(--secondary-color);
+  border: none !important;
+  position: relative;
+  left: 35%;
+}
+#cadastro-btn:hover {
+  background-color: var(--bg-secondary-color);
+}
+.cadastro-header {
+  background-color: var(--primary-color);
+}
+.cadastro-div {
+  background-color: var(--secondary-color);
+  border: none !important;
+}
+#login-box {
+  width: 700px;
+  height: 700px;
+  opacity: 1;
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+#login-box.hidden {
+  opacity: 0;
+  transform: translateY(-50px);
+  pointer-events: none;
+}
