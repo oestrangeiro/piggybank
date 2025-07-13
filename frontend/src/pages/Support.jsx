@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-export default function Support() {
-    return <h1>Support</h1>
-}
-=======
 import { useRef, useContext, useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 import { AuthContext } from "../contexts/AuthContext.js";
@@ -175,4 +170,3 @@ export default function Support() {
     </div>
   );
 }
->>>>>>> origin/frontend-noback
