@@ -5,6 +5,7 @@
   --secondary-color-active: #2c5550;
   --piggy-icon-color: #d8a7b1;
   --gray-color: #5a5a5a;
+  --bright-gray-color: #cecece;
   background-color: rgb(217, 217, 217);
   --bg-secondary-color: rgb(217, 217, 217);
 }

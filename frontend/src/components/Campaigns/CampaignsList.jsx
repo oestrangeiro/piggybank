@@ -1,10 +1,41 @@
 import earthImage from "../../assets/earth.jpg";
-import GeoIcon from "../../assets/geo.svg?react";
-import CampaignProgressBar from "./CampaignProgressBar";
-import { useRef, useEffect } from "react";
+import CampaignCard from "./CampaignCard";
+import { useRef, useEffect, useState } from "react";
 
-export default function CampaignsList() {
+export default function CampaignsList({withDelete = false}) {
   const listRef = useRef(null);
+  const [userCampaigns, setUserCampaigns] = useState([
+        {
+          id: 1,
+          titulo: "A calopsita Nina",
+          local: " Cidade / Estado",
+          meta: 2500,
+          arrecadado: 1000,
+          descricao: "Calopsita com insuficiência renal.",
+          imagem: earthImage,
+          entidade: "Entidade X",
+        },
+        {
+          id: 2,
+          titulo: "Cãozinho Thor",
+          local: "Cidade / Estado",
+          meta: 4000,
+          arrecadado: 2100,
+          descricao: "Tratamento de doença rara.",
+          imagem: earthImage,
+          entidade: "Entidade Y",
+        },
+        {
+          id: 3,
+          titulo: "Gatinha Luna",
+          local: "Cidade / Estado",
+          meta: 3000,
+          arrecadado: 1500,
+          descricao: "Ajuda para cirurgia.",
+          imagem: earthImage,
+          entidade: "Entidade Z",
+        },
+      ]);
 
   const handleScroll = () => {
     const list = listRef.current;
@@ -33,31 +64,10 @@ export default function CampaignsList() {
   }, []);
 
   return (
-    <div className="campaigns-list" ref={listRef}>
-      {[1, 2, 3, 4, 5, 6].map((camp, index) => (
-        <div className="campaign-container" key={index}>
-          <div className="campaign-content">
-            <div className="campaign-image">
-              <img src={earthImage} alt="Earth" />
-            </div>
-            <div className="campaign-info">
-              <h5>Título da Campanha</h5>
-              <p className="text-muted">
-                {" "}
-                <GeoIcon /> Entidade X • Localização
-              </p>
-              <p>Descrição da campanha</p>
-              <div className="donation-progress mt-2">
-                <p>
-                  <strong>Meta:</strong> R$ 10000 <strong>Arrecadado:</strong>{" "}
-                  R$ 4000
-                </p>
-                <CampaignProgressBar meta={10000} arrecadado={4000} />
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
+    <div className="campaigns-list my-5" ref={listRef}>
+      {userCampaigns.map((camp) => 
+        <CampaignCard campanha={camp} withDelete={withDelete} key={camp.id}/>
+      )}
     </div>
   );
 }

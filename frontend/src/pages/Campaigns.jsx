@@ -47,10 +47,10 @@ function Campaigns() {
         <div className="d-flex justify-content-center mb-4">
           <InputGroup
             className="search-tool"
-            style={{ maxWidth: "600px", width: "100%" }}
+            style={{ maxWidth: "700px"}}
           >
-            <Form.Control placeholder="Buscar campanhas..." />
-            <Button className="filtering-btn">Filtros</Button>
+            <Form.Control className="fs-5" placeholder="Buscar campanhas..." />
+            <Button className="filtering-btn fs-5">Filtros</Button>
           </InputGroup>
         </div>
         <CampaignsList />

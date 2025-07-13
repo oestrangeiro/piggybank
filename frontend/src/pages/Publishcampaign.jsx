@@ -1,10 +1,9 @@
 import { Button } from "react-bootstrap";
-import { ScrollTopButton } from "../components/index";
+import { CampaignsList, ScrollTopButton } from "../components/index";
 import { body } from "../data/data";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import earthImage from "../assets/earth.jpg";
-import GeoIcon from "../assets/geo.svg?react";
 import "../styles/PublishCampaign.css";
 
 //tera alteracoes com o back, pois ta usando um user do authcontext
@@ -64,15 +63,11 @@ function PublishCampaign() {
     setCampanhaToDelete(null);
   };
 
-  // Cálculo % arrecadado
-  const porcentagemArrecadado = (campanha) =>
-    Math.min(100, ((campanha.arrecadado / campanha.meta) * 100).toFixed(2));
-
   return (
     <>
       <section
         id="div1"
-        className="d-flex align-items-start bg-dark text-white"
+        className="d-flex align-items-start bg-dark text-white mb-3"
       >
         <div
           className="overlay"
@@ -105,51 +100,7 @@ function PublishCampaign() {
         </div>
       </section>
 
-      <div className="campaigns-list">
-        {userCampaigns.map((campanha) => (
-          <div className="campaign-container" key={campanha.id}>
-            <div className="campaign-content">
-              <div className="campaign-image">
-                <img src={campanha.imagem} alt={campanha.titulo} />
-              </div>
-              <div className="campaign-info">
-                <h5>{campanha.titulo}</h5>
-                <p className="text-muted">
-                  <GeoIcon /> {campanha.entidade} • {campanha.local}
-                </p>
-                <p>{campanha.descricao}</p>
-
-                <div className="donation-progress mt-2">
-                  <p>
-                    <strong>Meta:</strong> R${campanha.meta}{" "}
-                    <strong>Arrecadado:</strong> R${campanha.arrecadado}
-                  </p>
-                  <div className="progress-and-text">
-                    <progress
-                      max={campanha.meta}
-                      value={campanha.arrecadado}
-                      className="progress"
-                    />
-                    <span className="progress-percentage">
-                      {porcentagemArrecadado(campanha)}%
-                    </span>
-                  </div>
-                </div>
-
-                <div className="text-end mt-2">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => setCampanhaToDelete(campanha)}
-                  >
-                    Deletar campanha
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <CampaignsList withDelete={true}/>
 
       <ScrollTopButton />
 
