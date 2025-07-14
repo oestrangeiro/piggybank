@@ -2,7 +2,7 @@ import earthImage from "../../assets/earth.jpg";
 import CampaignCard from "./CampaignCard";
 import { useRef, useEffect, useState } from "react";
 
-export default function CampaignsList({withDelete = false}) {
+export default function CampaignsList({campaigns, withDelete = false}) {
   const listRef = useRef(null);
   const [userCampaigns, setUserCampaigns] = useState([
         {
@@ -63,9 +63,10 @@ export default function CampaignsList({withDelete = false}) {
     };
   }, []);
 
+  
   return (
     <div className="campaigns-list my-5" ref={listRef}>
-      {userCampaigns.map((camp) => 
+      {campaigns && campaigns.map((camp) => 
         <CampaignCard campanha={camp} withDelete={withDelete} key={camp.id}/>
       )}
     </div>

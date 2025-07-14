@@ -1,7 +1,60 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cadastro } from "../data/data";
+import { useState } from 'react';
+
+const BACK_URL = import.meta.env.VITE_BACK_URL;
 
 function Cadastro() {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [telefone, setTelefone] = useState(''); 
+  const [cpf, setCpf] = useState('');
+  const [senha, setSenha] = useState('');  
+
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    const {name, value} = event.target
+    switch (name) {
+      case 'nome':
+        setNome(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'telefone':
+        setTelefone(value);
+        break;
+      case 'cpf':
+        setCpf(value);
+        break;
+      case 'senha':
+        setSenha(value);
+        break;
+      default:
+        break;
+    }
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const newUser = {
+      name: nome,
+      email,
+      tel: telefone,
+      cpf,
+      password: senha,
+      pfpImage: null
+    };
+    try {
+      const response = await axios.post(`${BACK_URL}/users/create`, newUser)
+      localStorage.setItem('userData', newUser)
+      navigate(`/perfil`)
+    } catch(err) {
+      console.warn(`Erro no cadastro de user: ${err.message}`)
+    }
+  }
+
   return (
     <div className="bgsecclr mt-5 d-flex justify-content-center align-items-center min-vh-100">
       <div
@@ -29,7 +82,7 @@ function Cadastro() {
           style={{ width: "70%" }}
         >
           <h2 className="mb-4 txtmainclr">{cadastro.desc2}</h2>
-          <form className="w-100" style={{ maxWidth: "500px" }}>
+          <form className="w-100" style={{ maxWidth: "500px" }} onSubmit={handleSubmit}>
             <div className="input-group bg-secondary-subtle rounded p-2 mb-3 align-items-center">
               <span className="me-2 text-primary">
                 <i className="fas fa-user"></i>
@@ -51,6 +104,9 @@ function Cadastro() {
                 type="text"
                 className="form-control mx-2 border-0 bg-transparent"
                 placeholder="Nome"
+                name="nome"
+                value={nome}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -79,6 +135,9 @@ function Cadastro() {
                 type="email"
                 className="form-control mx-2 border-0 bg-transparent"
                 placeholder="E-mail"
+                name="email"
+                value={email}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -113,7 +172,10 @@ function Cadastro() {
               <input
                 type="tel"
                 className="form-control mx-2 border-0 bg-transparent"
-                placeholder="Número"
+                placeholder="Telefone"
+                name="telefone"
+                value={telefone}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -142,6 +204,9 @@ function Cadastro() {
                 type="text"
                 className="form-control mx-2 border-0 bg-transparent"
                 placeholder="CPF"
+                name="cpf"
+                value={cpf}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -170,6 +235,9 @@ function Cadastro() {
                 type="password"
                 className="form-control mx-2 border-0 bg-transparent"
                 placeholder="Senha"
+                name="senha"
+                value={senha}
+                onChange={handleChange}
                 required
               />
             </div>

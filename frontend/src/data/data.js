@@ -26,7 +26,7 @@ export const body = {
   title: "PiggyBank",
   title2: "Transforme pequenos gestos em grandes mudanças",
   titleCamp: "Campanhas",
-  descCamp: "Todas as campanhas em andamento",
+  descCamp: "Todas as campanhas em andamento conosco",
   desc: "Solidariedade é a moeda que nunca desvaloriza",
   desc2:
     "Acreditamos no poder da solidariedade. Nossa missão é conectar doadores generosos a projetos reais, que impactam vidas em áreas como saúde, educação, moradia e combate à fome. Juntos, podemos criar um mundo mais justo e compassivo.",

@@ -6,8 +6,6 @@ import { AuthContext } from "../contexts/AuthContext";
 import earthImage from "../assets/earth.jpg";
 import "../styles/PublishCampaign.css";
 
-//tera alteracoes com o back, pois ta usando um user do authcontext
-
 function PublishCampaign() {
   const { usuario } = useContext(AuthContext);
   const [hideHeroText, setHideHeroText] = useState(false);
