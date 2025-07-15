@@ -1,13 +1,25 @@
 import { GeoIcon, TrashIcon }from '../../assets/index'
 import earthImage from "../../assets/earth.jpg";
-import {Button} from 'react-bootstrap'
+import {Button} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function CampaignCard({ campanha, withDelete}) {
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        navigate('/campanha', {state: {data: campanha}})
+    }
+
     const porcentagemArrecadado = (campanha) =>
         Math.min(100, ((campanha.recebido / campanha.meta) * 100).toFixed(2));
 
     return (
-        <div className="campaign-container">
+        <div 
+        className="campaign-container"
+        role='button'
+        tabIndex={0}
+        onClick={handleClick}
+        >
             <div className="campaign-content">
                 <div className="campaign-image">
                     <img src={earthImage} alt={campanha.titulo} />

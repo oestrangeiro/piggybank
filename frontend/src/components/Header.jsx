@@ -19,6 +19,20 @@ function Header() {
   const Cadastro = location.pathname === "/cadastro";
   const Suporte = location.pathname === "/suporte";
 
+  
+  const handleScrollToSection = (id) => {
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.getElementById('navbarNav');
+    if (navbarToggler && navbarCollapse && navbarCollapse.classList.contains('show')) {
+      navbarToggler.click(); // Simula um clique para fechar
+    }
+
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" }); // Rola suavemente
+    }
+  };
+
   return (
     <nav
       id="nav"
@@ -31,13 +45,16 @@ function Header() {
       <div className="container-fluid">
         <Link to="/" className="navbar-brand text-light mx-5">
           PiggyBank
-          <img src={logo} width="45px" height="45px" />
+          <img src={logo} width="45px" height="45px" alt="PiggyBank Logo" />
         </Link>
         <button
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-controls="navbarNav" 
+          aria-expanded="false"     
+          aria-label="Toggle navigation" 
         >
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -54,14 +71,16 @@ function Header() {
               </Link>
             </li>
             <li className="nav-item mx-5">
-              <a className="nav-link text-light" href="#carouselNoticias">
+              {/* Mudança aqui: de <a> para <li> com onClick */}
+              <li className="nav-link text-light" onClick={() => handleScrollToSection("carouselNoticias")} style={{ cursor: 'pointer' }}>
                 Notícias
-              </a>
+              </li>
             </li>
             <li className="nav-item mx-5">
-              <a className="nav-link text-light" href="#div3">
+              {/* Mudança aqui: de <a> para <li> com onClick */}
+              <li className="nav-link text-light" onClick={() => handleScrollToSection("div3")} style={{ cursor: 'pointer' }}>
                 Sobre nós
-              </a>
+              </li>
             </li>
             <li className="nav-item mx-5">
               <Link to="/suporte" className="nav-link text-light">

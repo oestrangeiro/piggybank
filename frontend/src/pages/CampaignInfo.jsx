@@ -2,7 +2,7 @@
 import { earthImage } from "../assets";
 import { GeoIcon, PersonOutlineIcon } from "../assets";
 import { Container, Row, Col, Spinner, ProgressBar } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const paragraf = `
@@ -16,8 +16,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam euismod laoreet
 `
 
 function CampaignInfo() {
-    const { id } = useParams();
+    const location = useLocation()
+    const campaign = location.state?.data
+    const recebido = campaign.recebido
+    const meta = campaign.meta
     const [isLoading, setIsLoading] = useState(true);
+
+    const fixedPercent = () =>
+        Math.min(100, ((recebido / meta) * 100).toFixed(2));
 
     useEffect(() => {
         //simula req via axios, usando id da campanha
@@ -39,7 +45,7 @@ function CampaignInfo() {
     function getPrincipalPanel() {
         return (
             <div className="principalInfoPanel d-flex flex-column gap-1 justify-content-start align-items-start">
-                <ProgressBar now={500} max={1000} label={`${(500 / 1000) * 100}%`} 
+                <ProgressBar now={recebido} max={meta} label={`${fixedPercent()}%`} 
                     className="principalInfoPanelPrgBar w-100 mb-2"
                 />
                 <h5
@@ -53,10 +59,10 @@ function CampaignInfo() {
                     style={{fontWeight:'1000', fontSize: '32px', 
                         color: 'var(--secondary-color)'}}
                 >
-                    R$ 500
+                    R${recebido}
                 </p>
                 <div id="principalInfoPanelSubtitles">
-                    <p>Meta: R$ 1000</p>
+                    <p>Meta: R${meta}</p>
                     <p>Apoiadores: 6</p>
                 </div>
                 <button className="wantHelpBtn" type="button">
@@ -69,11 +75,11 @@ function CampaignInfo() {
                         <h5 
                         style={{color:'var(--gray-color)', fontWeight:'700', fontSize:'15px', marginBottom:'5px'}} 
                         > 
-                            Vitor Adriano 
+                            {campaign.entidade_nome} 
                         </h5>
                         <div id="principalInfoPanelDateTime">
                             <p>Fortaleza/Ceará</p>
-                            <p>Campanha ativa desde 13/05/2025</p>
+                            <p>Campanha ativa desde {campaign.created_at}</p>
                         </div>  
                     </div>
                 </div>
@@ -88,7 +94,7 @@ function CampaignInfo() {
                     <h1 
                     style={{fontSize: '48px', fontWeight:'900', color:'var(--primary-color)'}} 
                     >
-                        Título da Campanha</h1>
+                        {campaign.titulo}</h1>
                     <p 
                     style={{fontSize:'20px', fontWeight:'700', color:'var(--primary-color'}} 
                     > 

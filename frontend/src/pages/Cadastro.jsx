@@ -48,7 +48,12 @@ function Cadastro() {
       pfpImage: null
     };
     try {
-      const response = await axios.post(`${BACK_URL}/users/create`, newUser)
+      const response = await axios.post(`${BACK_URL}/users/create`, newUser,
+        {headers: {
+          'Content-Type': 'application/json'
+        }}
+      )
+      console.log(`Response de cadastro: ${JSON.stringify(response, null, 2)}`)
       localStorage.setItem('userData', newUser)
       navigate(`/perfil`)
     } catch(err) {

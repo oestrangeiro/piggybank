@@ -41,7 +41,7 @@ function App() {
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/login" element={<Login />} />
           <Route path="/perfil" element={<Profile />} />
-          <Route path="/campanha/:id" element={<CampaignInfo />} />
+          <Route path="/campanha" element={<CampaignInfo />} />
           <Route path="/nova-campanha" element={<Formcampaign />} />
         </Routes>
       </main>

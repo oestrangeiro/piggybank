@@ -30,7 +30,7 @@ class Database extends Config
         'username'     => 'root',
         // Padrão
         // 'password'     => '',
-        'password'     => 'admin',
+        'password'     => '',
         'database'     => 'piggybank_db',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',

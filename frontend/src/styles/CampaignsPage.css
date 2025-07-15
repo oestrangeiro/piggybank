@@ -59,7 +59,12 @@
   width: 100%;
   max-width: 1000px;
   padding: 15px;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, background-color 0.05s ease, border 0.05s ease;
+  cursor: pointer;
+}
+.campaign-container:hover {
+  background-color: #f3f3f3;
+  border: 2px solid var(--primary-color);
 }
 .campaign-content {
   display: grid;
