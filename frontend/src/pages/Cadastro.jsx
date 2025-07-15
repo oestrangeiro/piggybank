@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { cadastro } from "../data/data";
 import { useState } from 'react';
+import axios from 'axios';
 
 const BACK_URL = import.meta.env.VITE_BACK_URL;
 

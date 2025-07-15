@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { cadastro } from "../data/data";
+import axios from 'axios';
+
+const BACK_URL = import.meta.env.VITE_BACK_URL;
 
 function Login() {
   const [hidePB, setHidePB] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +21,40 @@ function Login() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    switch (name) {
+      case 'email':
+        setEmail(value)
+        break
+      case 'password':
+        setPassword(value)
+        break
+      default:
+        break
+    }
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    let control = false
+    try {
+      const response = await axios.get(`${BACK_URL}/users`)
+      const users = response.data
+      for (let user of users) {
+        if (user.email === email) {
+          control = true
+          console.log(`Users: ${JSON.stringify(users, null ,2)}`)
+          localStorage.setItem('userData', user)
+          navigate('/perfil')
+        }
+      }
+      if (!control) alert(`Credenciais erradas`)
+    } catch (err) {
+      console.warn(`Erro no login: ${err.message}`)
+    }
+  }
+
   return (
     <div className="bgmainclr d-flex justify-content-center align-items-center min-vh-100">
       <div
@@ -24,7 +64,7 @@ function Login() {
         <h2 className="text-center txtmainclr mt-5 py-5 mb-4">
           {cadastro.title2}
         </h2>
-        <form className="mt-3 ">
+        <form className="mt-3" onSubmit={handleSubmit}>
           <div className="input-group bg-secondary-subtle rounded mb-3 p-2 align-items-center">
             <span className="me-2 text-success">
               <i className="fas fa-envelope"></i>
@@ -49,6 +89,9 @@ function Login() {
               type="email"
               className="form-control mx-2 border-0 bg-transparent"
               placeholder="E-mail"
+              name="email"
+              value={email}
+              onChange={handleChange}
               required
             />
           </div>
@@ -77,6 +120,9 @@ function Login() {
               type="password"
               className="form-control mx-2 border-0 bg-transparent"
               placeholder="Senha"
+              name="password"
+              value={password}
+              onChange={handleChange}
               required
             />
           </div>

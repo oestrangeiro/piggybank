@@ -72,7 +72,7 @@ class Filters extends BaseFilters
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
-            'cors',
+            'cors' // pra permitir uma requisição externa à API
         ],
         'after' => [
             // 'honeypot',
