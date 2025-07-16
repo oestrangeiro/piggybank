@@ -54,7 +54,7 @@ class Entidades extends ResourceController {
         $name       = $data['name'];
         $email      = $data['email'];
         $password   = $data['password'];
-        $tel        = $data['tel'];
+        $tel        = $data['phone'];
 
         // Verifico se algum campo veio vazio
         $someValueEmpty = $this->isSomeValueNull([$name, $password, $email, $tel]);
