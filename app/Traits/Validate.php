@@ -9,8 +9,9 @@ trait Validate {
     // Não vou questionar sua cognição
     public function isSomeValueNull(array $array): bool {
         foreach($array as $key => $value){
-            //echo "[{$key}]: {$value}\n";
-            if(empty($value)) {
+            // echo "[{$key}]: {$value}\n";
+            if(is_null($value)) { // evita falsy
+                // echo "[debug] key vazia: {$key} {$value}\n"; die();
                 return true;
             }
         }
