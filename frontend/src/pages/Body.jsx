@@ -35,7 +35,7 @@ function Body() {
               <h1 className="display-1">{body.title}</h1>
               <p className="lead text-light">{body.desc}</p>
               <Link
-                to="/cadastro"
+                to="/cadastro/usuario"
                 className="btn btn-outline-light rounded mt-2"
               >
                 {body.btn}

@@ -1,17 +1,25 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { cadastro } from "../data/data";
+import { cadastro } from "../../data/data";
 import axios from 'axios';
 
 const BACK_URL = import.meta.env.VITE_BACK_URL;
 
-function Login() {
+function Signin() {
   const [hidePB, setHidePB] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
   const navigate = useNavigate();
+  const { tipo } = useParams()
+  const forEntity = tipo === 'entidade' ? true : false;
+  const routeSegment = forEntity ? 'entidades' : 'users';
+
+  const backgroundColor = forEntity ? 'var(--blue-color1)' : 'var(--secondary-color)';
+  const btnClass = forEntity ? 'btn-login-entidade' : 'btn-login-user';
 
   useEffect(() => {
+    console.log(`Login para: ${routeSegment}`)
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       setHidePB(scrollTop > 0);
@@ -39,13 +47,13 @@ function Login() {
     event.preventDefault()
     let control = false
     try {
-      const response = await axios.get(`${BACK_URL}/users`)
-      const users = response.data
-      for (let user of users) {
-        if (user.email === email) {
+      const response = await axios.get(`${BACK_URL}/${routeSegment}`)
+      const data = response.data
+      for (let userOrEntity of data) {
+        if (userOrEntity.email === email) {
           control = true
-          console.log(`Users: ${JSON.stringify(users, null ,2)}`)
-          localStorage.setItem('userData', user)
+          console.log(`Users: ${JSON.stringify(data, null ,2)}`)
+          localStorage.setItem( (forEntity ? 'EntityData' : 'UserData'), userOrEntity)
           navigate('/perfil')
         }
       }
@@ -56,13 +64,15 @@ function Login() {
   }
 
   return (
-    <div className="bgmainclr d-flex justify-content-center align-items-center min-vh-100">
+    <div className="d-flex justify-content-center align-items-center min-vh-100" 
+    style={{backgroundColor:backgroundColor }}
+    >
       <div
         id="login-box"
         className={`bg-light p-5  rounded-4 shadow ${hidePB ? "hidden" : ""}`}
       >
-        <h2 className="text-center txtmainclr mt-5 py-5 mb-4">
-          {cadastro.title2}
+        <h2 className="text-center mt-5 py-5 mb-4" style={{color:backgroundColor }}>
+          {forEntity ? cadastro.entityTitle : cadastro.userTitle}
         </h2>
         <form className="mt-3" onSubmit={handleSubmit}>
           <div className="input-group bg-secondary-subtle rounded mb-3 p-2 align-items-center">
@@ -127,15 +137,24 @@ function Login() {
             />
           </div>
 
-          <button type="submit" className="btn-login w-100 py-2 rounded-3 mb-2">
-            {cadastro.btn3}
+          <button type="submit" className={`w-100 py-2 rounded-3 mb-2 ${btnClass}`}>
+            {cadastro.btnTitle3}
           </button>
 
           <Link
             to="#"
-            className="d-block text-center txtmainclr small text-decoration-none"
+            className="d-block text-center small text-decoration-none"
+            style={{color:backgroundColor,}}
           >
             {cadastro.desc3}
+          </Link>
+
+          <Link
+          to={`/cadastro/${tipo}`}
+          className="d-block text-center small text-decoration-none mt-5"
+          style={{color:backgroundColor,}}
+          >
+            Criar uma conta
           </Link>
         </form>
       </div>
@@ -143,4 +162,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signin;

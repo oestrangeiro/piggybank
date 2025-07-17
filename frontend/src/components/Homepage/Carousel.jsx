@@ -46,7 +46,7 @@ function Carousel() {
                       <h3>{item.title}</h3>
                       <p>{item.desc}</p>
                       <Link
-                        to="/news"
+                        to="/noticias"
                         state={{ newsItem: item }}
                         className="btn btn-outline-dark"
                       >

@@ -1,36 +1,42 @@
-import { Link, useNavigate } from "react-router-dom";
-import { cadastro } from "../data/data";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { auth } from "../../data/data";
 import { useState } from 'react';
 import axios from 'axios';
 
 const BACK_URL = import.meta.env.VITE_BACK_URL;
 
 function Cadastro() {
-  const [nome, setNome] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [telefone, setTelefone] = useState(''); 
-  const [cpf, setCpf] = useState('');
-  const [senha, setSenha] = useState('');  
+  const [phone, setPhone] = useState(''); 
+  const [taxIdentification, setTaxIdentification] = useState('');
+  const [password, setPassword] = useState('');
+  const pfpImageLink = 'https://pixabay.com/pt/photos/image-9683286/';
 
+  const { tipo } = useParams()
+  const forEntity = tipo === 'entidade' ? true : false; 
+  const routeSegment = forEntity ? 'entidades/create' : 'users/create';
   const navigate = useNavigate();
+
+  const backgroundColor = forEntity ? 'var(--blue-color1)' : 'var(--secondary-color)';
 
   const handleChange = (event) => {
     const {name, value} = event.target
     switch (name) {
       case 'nome':
-        setNome(value);
+        setName(value);
         break;
       case 'email':
         setEmail(value);
         break;
       case 'telefone':
-        setTelefone(value);
+        setPhone(value);
         break;
       case 'cpf':
-        setCpf(value);
+        setTaxIdentification(value);
         break;
       case 'senha':
-        setSenha(value);
+        setPassword(value);
         break;
       default:
         break;
@@ -39,22 +45,22 @@ function Cadastro() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const newUser = {
-      name: nome,
-      email,
-      tel: telefone,
-      cpf,
-      password: senha,
-      pfpImage: null
+    const newUserOrEntity = {
+      name: name,
+      email: email,
+      password: password,
+      phone: phone,
+      pfpImg: ''
     };
+    forEntity ? newUserOrEntity.cnpj = taxIdentification : newUserOrEntity.cpf = taxIdentification
     try {
-      const response = await axios.post(`${BACK_URL}/users/create`, newUser,
+      const response = await axios.post(`${BACK_URL}/${routeSegment}`, newUserOrEntity,
         {headers: {
           'Content-Type': 'application/json'
         }}
       )
       console.log(`Response de cadastro: ${JSON.stringify(response, null, 2)}`)
-      localStorage.setItem('userData', newUser)
+      localStorage.setItem(forEntity ? 'EntityData' : 'UserData', newUserOrEntity)
       navigate(`/perfil`)
     } catch(err) {
       console.warn(`Erro no cadastro de user: ${err.message}`)
@@ -62,23 +68,25 @@ function Cadastro() {
   }
 
   return (
-    <div className="bgsecclr mt-5 d-flex justify-content-center align-items-center min-vh-100">
+    <div className="d-flex justify-content-center align-items-center min-vh-100" 
+    style={{backgroundColor: backgroundColor}}
+    >
       <div
-        className="d-flex shadow rounded-3 overflow-hidden"
+        className="mt-5 d-flex shadow rounded-3 overflow-hidden"
         style={{ width: "1200px", height: "800px", backgroundColor: "#f0f0f5" }}
       >
         <div
-          className="cadastro-div text-white d-flex flex-column justify-content-center align-items-center p-4"
-          style={{ width: "30%" }}
+          className="border-0 text-white d-flex flex-column justify-content-center align-items-center p-4"
+          style={{ width: "30%", backgroundColor:backgroundColor, }}
         >
-          <h2 className="mb-3 display-5 fw-bold">{cadastro.title}</h2>
-          <p className="mb-4 text-light lead">{cadastro.desc}</p>
-          <Link to="/login">
+          <h2 className="mb-3 display-5 fw-bold">{auth.mainTitle}</h2>
+          <p className="mb-4 text-light lead">{forEntity ? auth.mainDesc2 : auth.mainDesc1}</p>
+          <Link to={`/login/${tipo}`}>
             <button
               className="btn btn-outline-light fw-bold px-4 py-2 rounded-3 hover-opacity"
               style={{ transition: "0.3s" }}
             >
-              {cadastro.btn}
+              {auth.btnTitle1}
             </button>
           </Link>
         </div>
@@ -87,7 +95,7 @@ function Cadastro() {
           className="d-flex flex-column justify-content-center align-items-center p-5"
           style={{ width: "70%" }}
         >
-          <h2 className="mb-4 txtmainclr">{cadastro.desc2}</h2>
+          <h2 className="mb-4" style={{color:backgroundColor }}>{auth.desc2}</h2>
           <form className="w-100" style={{ maxWidth: "500px" }} onSubmit={handleSubmit}>
             <div className="input-group bg-secondary-subtle rounded p-2 mb-3 align-items-center">
               <span className="me-2 text-primary">
@@ -111,7 +119,7 @@ function Cadastro() {
                 className="form-control mx-2 border-0 bg-transparent"
                 placeholder="Nome"
                 name="nome"
-                value={nome}
+                value={name}
                 onChange={handleChange}
                 required
               />
@@ -180,7 +188,7 @@ function Cadastro() {
                 className="form-control mx-2 border-0 bg-transparent"
                 placeholder="Telefone"
                 name="telefone"
-                value={telefone}
+                value={phone}
                 onChange={handleChange}
                 required
               />
@@ -211,7 +219,7 @@ function Cadastro() {
                 className="form-control mx-2 border-0 bg-transparent"
                 placeholder="CPF"
                 name="cpf"
-                value={cpf}
+                value={taxIdentification}
                 onChange={handleChange}
                 required
               />
@@ -242,7 +250,7 @@ function Cadastro() {
                 className="form-control mx-2 border-0 bg-transparent"
                 placeholder="Senha"
                 name="senha"
-                value={senha}
+                value={password}
                 onChange={handleChange}
                 required
               />
@@ -250,10 +258,10 @@ function Cadastro() {
 
             <button
               type="submit"
-              id="cadastro-btn"
+              id={forEntity ? 'cadastro-btn-entidade' : 'cadastro-btn-user'}
               className="btn text-white fw-bold px-4 py-2 rounded-3 mt-2"
             >
-              {cadastro.btn2}
+              {auth.btnTitle2}
             </button>
           </form>
         </div>

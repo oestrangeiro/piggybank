@@ -30,3 +30,16 @@
 .delete-modal .btn {
   min-width: 110px;
 }
+
+.registerCampaignBtn {
+  border: 2.5px solid var(--blue-color1);
+  border-radius: 10px;
+  background: none;
+  color: var(--blue-color1-hover);
+  padding: 10px;
+  transition: background 0.05s ease, color  0.05s ease;
+}
+.registerCampaignBtn:hover {
+  background: var(--blue-color1);
+  color:white;
+}

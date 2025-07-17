@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { earthImage } from "../assets";
-import { GeoIcon, PersonOutlineIcon } from "../assets";
+import { earthImage } from "../../assets";
+import { GeoIcon, PersonOutlineIcon } from "../../assets";
 import { Container, Row, Col, Spinner, ProgressBar } from "react-bootstrap";
 import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";

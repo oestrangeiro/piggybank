@@ -1,14 +1,16 @@
 import { Button } from "react-bootstrap";
-import { CampaignsList, ScrollTopButton } from "../components/index";
-import { body } from "../data/data";
-import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-import earthImage from "../assets/earth.jpg";
-import "../styles/PublishCampaign.css";
+import { CampaignsList, ScrollTopButton } from "../../components/index";
+import { body, publishCamp } from "../../data/data";
+import { useEffect, useState } from "react";
+import {earthImage} from "../../assets";
+import { useNavigate } from "react-router-dom";
+import "../../styles/PublishCampaign.css";
 
 function PublishCampaign() {
-  const { usuario } = useContext(AuthContext);
   const [hideHeroText, setHideHeroText] = useState(false);
+  const EntityData = localStorage.getItem('EntityData')
+  const isEntity = EntityData != null
+  const navigate = useNavigate()
 
   const [userCampaigns, setUserCampaigns] = useState([
     {
@@ -55,6 +57,21 @@ function PublishCampaign() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  function getHeroButton() {
+    return (
+      <button
+      onClick={() => navigate(isEntity ? '/nova-campanha': '/cadastro/entidade')}
+      className="btn-new-campaign mt-4 registerCampaignBtn"
+      >
+      {isEntity ? publishCamp.heroBtnTitle2 : publishCamp.heroBtnTitle1}
+      </button>
+    )
+  }
+
+  function getHeroTitle() {
+    return isEntity ? publishCamp.title2 : publishCamp.title1
+  }
+
   const handleDelete = (id) => {
     const updatedCampaigns = userCampaigns.filter((c) => c.id !== id);
     setUserCampaigns(updatedCampaigns);
@@ -82,17 +99,11 @@ function PublishCampaign() {
               id="hero-text"
               className={`col-md-6 mt-2 py-5 ${hideHeroText ? "hidden" : ""}`}
             >
-              <h1 className="display-1 mt-3">Suas campanhas</h1>
+              <h1 className="display-1 mt-3">{getHeroTitle()}</h1>
               <p className="lead text-light">
                 Aqui você cria e gerencia suas campanhas!
               </p>
-              <Button
-                onClick={() => (window.location.href = "/nova-campanha")}
-                className="btn-new-campaign mt-4"
-                variant="outline-success"
-              >
-                Criar Nova Campanha
-              </Button>
+              {getHeroButton()}
             </div>
           </div>
         </div>

@@ -42,16 +42,25 @@ export const body = {
   bg4: "https://cdn-ildaojb.nitrocdn.com/PVDePGcFJhvTEmzhNCQtWpPYumfafFsG/assets/images/optimized/rev-3261d5e/leadingresponse.com/wp-content/uploads/2025/04/Blog-Images.webp",
 };
 
-export const cadastro = {
-  title: "Bem-vindo de volta!",
-  title2: "Acesse sua conta",
-  desc: "Acesse sua conta agora mesmo",
+export const auth = {
+  mainTitle: "Bem-vindo de volta!",
+  title1: "Acesse sua conta de doador",
+  title2: 'Acesse sua conta de entidade',
+  mainDesc1: "Acesse sua conta doadora agora mesmo",
+  mainDesc2: "Acesse sua conta de entidade agora mesmo",
   desc2: "Crie sua conta",
   desc3: "Esqueceu a senha?",
-  btn: "ENTRAR",
-  btn2: "Cadastrar",
-  btn3: "Entrar",
+  btnTitle1: "ENTRAR",
+  btnTitle2: "Cadastrar",
+  btnTitle3: "Entrar",
 };
+
+export const publishCamp = {
+  title1: 'Torne-se uma entidade parceira',
+  title2: 'Divulgue suas campanhas conosco',
+  heroBtnTitle1: 'Cadastrar conta de entidade',
+  heroBtnTitle2: 'Criar nova campanha'
+}
 
 export const sp = {
   title: "Entre em contato conosco",

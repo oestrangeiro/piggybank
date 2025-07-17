@@ -6,6 +6,8 @@
   --piggy-icon-color: #d8a7b1;
   --gray-color: #5a5a5a;
   --bright-gray-color: #cecece;
+  --blue-color1: #1E4F5D;
+  --blue-color1-hover: #27687a;
   background-color: rgb(217, 217, 217);
   --bg-secondary-color: rgb(217, 217, 217);
 }
@@ -20,16 +22,27 @@ body {
   flex-direction: column;
   display: flex;
 }
-.btn-login {
+.btn-login-user {
   background-color: var(--secondary-color);
   color: white;
   font-weight: bold;
   border: none;
   transition: background-color 0.3s ease;
 }
-.btn-login:hover {
+.btn-login-user:hover {
   background-color: var(--bg-secondary-color);
 }
+.btn-login-entidade {
+  background-color: var(--blue-color1);
+  color: white;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+.btn-login-entidade:hover {
+  background-color: var(--blue-color1-hover);
+}
+
 .txtmainclr {
   color: var(--secondary-color-active);
 }

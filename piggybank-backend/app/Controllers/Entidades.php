@@ -43,10 +43,18 @@ class Entidades extends ResourceController {
     // Método para criar uma entidade
     public function create(){
         // capturando os valores via POST
-        $name       = $this->request->getPost('name');
-        $email      = $this->request->getPost('email');
-        $password   = $this->request->getPost('password');
-        $tel        = $this->request->getPost('tel');
+        // COMENTADO: FRONTENDSON ESTÁ ENVIANDO DADOS VIA JSON E NÃO FORM-URLENCONDED
+        // $name       = $this->request->getPost('name');
+        // $email      = $this->request->getPost('email');
+        // $password   = $this->request->getPost('password');
+        // $tel        = $this->request->getPost('tel');
+
+        $data = $this->request->getJSON(true); // ativa o diabo do json
+        // capturando os dados
+        $name       = $data['name'];
+        $email      = $data['email'];
+        $password   = $data['password'];
+        $tel        = $data['tel'];
 
         // Verifico se algum campo veio vazio
         $someValueEmpty = $this->isSomeValueNull([$name, $password, $email, $tel]);

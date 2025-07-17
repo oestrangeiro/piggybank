@@ -12,7 +12,7 @@ import {
   Body,
   News,
   Cadastro,
-  Login,
+  Signin,
   Profile,
   CampaignInfo,
   Formcampaign,
@@ -34,12 +34,12 @@ function App() {
               </>
             }
           />
-          <Route path="/news" element={<News />} />
+          <Route path="/noticias" element={<News />} />
           <Route path="/campanhas" element={<Campaigns />} />
           <Route path="/divulgue" element={<Publishcampaign />} />
           <Route path="/suporte" element={<Support />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/cadastro/:tipo" element={<Cadastro />} />
+          <Route path="/login/:tipo" element={<Signin />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/campanha" element={<CampaignInfo />} />
           <Route path="/nova-campanha" element={<Formcampaign />} />

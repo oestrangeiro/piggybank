@@ -67,13 +67,27 @@ class Users extends ResourceController {
     public function create(){
         
         // recebendo os dados via post
+        // COMENTADO: FRONT END ESTÁ ENVIANDO DADOS VIA JSON
+        // E NÃO FORM-URL-ENCODED
+        // $name       = $this->request->getPost('name');
+        // $email      = $this->request->getPost('email');
+        // $password   = $this->request->getPost('password');
+        // $tel        = $this->request->getPost('phone');
+        // $cpf        = $this->request->getPost('cpf');
+        // $pfpImg     = $this->request->getFile('pfpImg'); // Recebe uma imagem
+
+        // habilitando o envio por json
+        $data = $this->request->getJSON(true);
+        // print_r($data); die();
+        // capturando o diabo dos dados, mas em JSON
+        $name           = $data['name']     ?? null;
+        $email          = $data['email']    ?? null;
+        $password       = $data['password'] ?? null;
+        $tel            = $data['phone']    ?? null;
+        $cpf            = $data['cpf']      ?? null;
+        $pfpImg         = $data['pfpImg']   ?? null;
+
         
-        $name       = $this->request->getPost('name');
-        $email      = $this->request->getPost('email');
-        $password   = $this->request->getPost('password');
-        $tel        = $this->request->getPost('phone');
-        $cpf        = $this->request->getPost('cpf');
-        $pfpImg     = $this->request->getFile('pfpImg'); // Recebe uma imagem
         
         // Verifica se o usuário mandou uma imagem próoria
         // ou se optou por escolher uma imagem default

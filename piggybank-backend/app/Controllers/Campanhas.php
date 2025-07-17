@@ -40,12 +40,23 @@ class Campanhas extends ResourceController {
     }
 
     public function create(){
-        // Pegando os dados da requisição 
-        $title          = $this->request->getPost('title');
-        $goal           = $this->request->getPost('goal');
-        $received       = $this->request->getPost('received');
-        $description    = $this->request->getPost('description');
-        $fkIdEntidade   = $this->request->getPost('fkIdEntidade');
+        // Pegando os dados da requisição
+        // COMENTADO TAMBÉM, FRONT END ENVIANDO DADOS VIA JSON
+        // $title          = $this->request->getPost('title');
+        // $goal           = $this->request->getPost('goal');
+        // $received       = $this->request->getPost('received');
+        // $description    = $this->request->getPost('description');
+        // $fkIdEntidade   = $this->request->getPost('fkIdEntidade');
+
+        // PEGANDO OS DADOS VIA JSON
+
+        $data = $this->request->getJSON(true);
+
+        $title          = $data['title']        ?? null;
+        $goal           = $data['goal']         ?? null;
+        $received       = $data['received']     ?? 0;
+        $description    = $data['description']  ?? null;
+        $fkIdEntidade   = $data['fkIdEntidade'] ?? null;
 
         $thereisSomeFielEmpty = $this->isSomeValueNull([$title, $goal, $received, $description, $fkIdEntidade]);
 

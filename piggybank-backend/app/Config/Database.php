@@ -28,8 +28,6 @@ class Database extends Config
         'DSN'          => '',
         'hostname'     => 'localhost',
         'username'     => 'root',
-        // Padrão
-        // 'password'     => '',
         'password'     => '',
         'database'     => 'piggybank_db',
         'DBDriver'     => 'MySQLi',

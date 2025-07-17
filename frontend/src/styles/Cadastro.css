@@ -1,12 +1,22 @@
-#cadastro-btn {
+#cadastro-btn-user {
   background-color: var(--secondary-color);
   border: none !important;
   position: relative;
   left: 35%;
 }
-#cadastro-btn:hover {
+#cadastro-btn-user:hover {
   background-color: var(--bg-secondary-color);
 }
+#cadastro-btn-entidade {
+  background-color: var(--blue-color1);
+  border: none !important;
+  position: relative;
+  left: 35%;
+}
+#cadastro-btn-entidade:hover {
+  background-color: var(--blue-color1-hover);
+}
+
 .cadastro-header {
   background-color: var(--primary-color);
 }

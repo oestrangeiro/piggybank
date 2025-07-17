@@ -1,5 +1,5 @@
 import { useRef, useContext, useState, useEffect } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 //tera alteracoes com o back, pois ta usando um user do authcontext

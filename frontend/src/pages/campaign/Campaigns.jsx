@@ -1,6 +1,6 @@
 import { Button, Form, InputGroup, Container, Spinner } from "react-bootstrap";
-import { CampaignsList, ScrollTopButton } from "../components/index";
-import { body } from "../data/data";
+import { CampaignsList, ScrollTopButton } from "../../components/index";
+import { body } from "../../data/data";
 import { useEffect, useState } from "react";
 import axios from 'axios'
 
