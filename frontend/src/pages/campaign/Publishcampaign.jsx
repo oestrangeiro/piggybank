@@ -48,6 +48,7 @@ function PublishCampaign() {
   const [campanhaToDelete, setCampanhaToDelete] = useState(null);
 
   useEffect(() => {
+    window.scrollTo(0,0)
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       setHideHeroText(scrollTop > 100);

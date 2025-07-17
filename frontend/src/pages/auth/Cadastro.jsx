@@ -1,7 +1,8 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth } from "../../data/data";
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
+import { ProfileContext } from "../../contexts/ProfileContext";
 
 const BACK_URL = import.meta.env.VITE_BACK_URL;
 
@@ -13,7 +14,8 @@ function Cadastro() {
   const [password, setPassword] = useState('');
   const pfpImageLink = 'https://pixabay.com/pt/photos/image-9683286/';
 
-  const { tipo } = useParams()
+  const { setProfileData } = useContext(ProfileContext);
+  const { tipo } = useParams();
   const forEntity = tipo === 'entidade' ? true : false; 
   const routeSegment = forEntity ? 'entidades/create' : 'users/create';
   const navigate = useNavigate();
@@ -60,8 +62,8 @@ function Cadastro() {
         }}
       )
       console.log(`Response de cadastro: ${JSON.stringify(response, null, 2)}`)
-      localStorage.setItem(forEntity ? 'EntityData' : 'UserData', newUserOrEntity)
-      navigate(`/perfil`)
+      setProfileData(newUserOrEntity, (forEntity ? 'EntityData' : 'UserData'))
+      navigate(`/perfil`, {state: {forEntity: forEntity} })
     } catch(err) {
       console.warn(`Erro no cadastro de user: ${err.message}`)
     }
@@ -80,7 +82,7 @@ function Cadastro() {
           style={{ width: "30%", backgroundColor:backgroundColor, }}
         >
           <h2 className="mb-3 display-5 fw-bold">{auth.mainTitle}</h2>
-          <p className="mb-4 text-light lead">{forEntity ? auth.mainDesc2 : auth.mainDesc1}</p>
+          <p className="mb-4 text-light lead">{forEntity ? auth.mainEntityDesc : auth.mainUserDesc}</p>
           <Link to={`/login/${tipo}`}>
             <button
               className="btn btn-outline-light fw-bold px-4 py-2 rounded-3 hover-opacity"

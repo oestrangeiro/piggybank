@@ -6,6 +6,7 @@ function Body() {
   const [hidePB, setHidePB] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0,0)
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       setHidePB(scrollTop > 100);

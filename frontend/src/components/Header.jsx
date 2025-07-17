@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 import logo from "../assets/pb logo.png";
+import { ProfileContext } from "../contexts/ProfileContext";
 
 function Header() {
   const [hideNav, setHideNav] = useState(false);
   const location = useLocation();
+  const { profileData } = useContext(ProfileContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +34,18 @@ function Header() {
       element.scrollIntoView({ behavior: "smooth", block: "start" }); // Rola suavemente
     }
   };
+
+  function verifyProfileLink() {
+    if (profileData) {
+      return (
+        <li className="nav-item me-1">
+          <Link to="/perfil" className="nav-link text-light">
+            <i className="bi bi-person-circle fs-4"></i>
+          </Link>
+        </li>
+      )
+    }
+  }
 
   return (
     <nav
@@ -89,11 +103,7 @@ function Header() {
             </li>
           </ul>
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item me-1">
-              <Link to="/perfil" className="nav-link text-light">
-                <i className="bi bi-person-circle fs-4"></i>
-              </Link>
-            </li>
+            {verifyProfileLink()}
           </ul>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import { userData } from "../data/data";
 import { body } from "../data/data";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ProfileContext } from "../contexts/ProfileContext";
 
 function Profile() {
   const {
@@ -18,7 +20,13 @@ function Profile() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [hidePB, setHidePB] = useState(false);
 
+  const location = useLocation();
+  const forEntity = location.state.forEntity;
+  const { profileData, clearProfileData } = useContext(ProfileContext);
+  const navigate = useNavigate();
+
   useEffect(() => {
+    window.scrollTo(0,0)
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       setHidePB(scrollTop > 100);
@@ -27,6 +35,11 @@ function Profile() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLogout = () => {
+    clearProfileData()
+    navigate('/')
+  }
 
   return (
     <>
@@ -49,7 +62,7 @@ function Profile() {
                 width={"200px"}
                 height={"200px"}
               />
-              <h1 className="display-3">{username}</h1>
+              <h1 className="display-3">{profileData.name}</h1>
             </div>
           </div>
         </div>
@@ -64,14 +77,26 @@ function Profile() {
                   className="card-body py-5"
                   style={{ color: "rgb(15, 55, 63)" }}
                 >
-                  <h4 className="card-title">{username}</h4>
-                  <p className="text-muted"> {since}</p>
+                  <img src={avatar} 
+                  className="rounded-circle mb-3"
+                  width={"200px"}
+                  height={"200px"}
+                  alt="avatar" 
+                  />
+                  <h4 className="card-title">{profileData.name}</h4>
+                  <p className="text-muted"> {profileData.created_at ?? 'sem_data'}</p>
                   <p>{bio}</p>
                   <button
                     className="btn btn-outline-warning w-100 mt-3"
                     onClick={() => setShowEditModal(true)}
                   >
                     {userData.btn}
+                  </button>
+                  <button 
+                  className="btn btn-outline-danger w-100 mt-3"
+                  onClick={handleLogout}
+                  >
+                    Sair da Conta
                   </button>
                 </div>
               </div>
@@ -83,7 +108,7 @@ function Profile() {
                   className="card-header text-white"
                   style={{ backgroundColor: "rgb(15, 55, 63)" }}
                 >
-                  <strong>{userData.desc}</strong>
+                  <strong>{userData.mainDesc}</strong>
                 </div>
                 <div className="card-body">
                   <div className="row text-center">
@@ -108,7 +133,7 @@ function Profile() {
                   className="card-header text-white"
                   style={{ backgroundColor: "rgb(15, 55, 63)" }}
                 >
-                  <strong>{userData.desc2}</strong>
+                  <strong>{forEntity ? userData.desc2 : userData.desc1}</strong>
                 </div>
                 <div className="card-body">
                   <ul className="list-group list-group-flush">
@@ -143,7 +168,7 @@ function Profile() {
                     {notifications ? "Ativadas" : "Desativadas"}
                   </p>
                   <p>
-                    <strong>Contato:</strong> {email}
+                    <strong>Contato:</strong> {profileData.email}
                   </p>
                 </div>
               </div>
