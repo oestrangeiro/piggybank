@@ -11,12 +11,12 @@ $routes->get('/', 'Home::index');
 // Rotas da api
 $routes->get('users', 'Users::index');
 $routes->get('campanhas', 'Campanhas::index');
-$routes->get('entidades', 'Entidades::index');
+// $routes->get('entidades', 'Entidades::index');
 
 // Rotas com parametros
 $routes->get('users/(:num)', 'Users::show/$1');
 $routes->get('campanhas/(:num)', 'Campanhas::show/$1');
-$routes->get('entidades/(:num)', 'Entidades::show/$1');
+// $routes->get('entidades/(:num)', 'Entidades::show/$1');
 // Rota para servir a imagem para o front end
 $routes->get('uploads/img/pfp/(:any)', 'Image::profile/$1');
 // Serve a imagem de perfil padrão
