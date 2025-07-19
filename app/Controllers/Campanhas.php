@@ -22,8 +22,17 @@ class Campanhas extends ResourceController {
     // Rota que mostra todas as campanhas
     public function index(){
 
-        // $data = $this->model->select('titulo, meta, recebido, descricao')->findAll();
-        $campanhas = $this->model->getCampanhasEEntidades();
+        $campanhas = $this->model->select('
+                 titulo,
+                 meta,
+                 recebido,
+                 descricao,
+                 fk_id_usuario_criador_campanha,
+                 fk_id_entidade_criadora_campanha,
+                 created_at,
+                 updated_at
+        ')->findAll();
+        //$campanhas = $this->model->getCampanhasEEntidades();
 
         return $this->respond($campanhas);
     }
