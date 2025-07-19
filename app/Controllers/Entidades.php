@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\EntidadesModel;
+use App\Models\UserModel;
 use CodeIgniter\RESTful\ResourceController;
 use App\Traits\Validate;
 
@@ -15,7 +15,7 @@ class Entidades extends ResourceController {
     protected $entidadeModel;
 
     public function __construct(){
-        $this->entidadeModel = new EntidadesModel();
+        $this->entidadeModel = new UserModel();
     }
 
     public function index(){

@@ -15,5 +15,7 @@ class CampanhasModel extends Model{
         ->join('entidades', 'entidades.id = campanhas.fk_id_entidade')
         ->findAll();
     }
+
+
 }
 

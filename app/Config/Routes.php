@@ -33,12 +33,22 @@ $routes->options('users/create', function () {
 });
 
 // Cria a entidade no banco
-$routes->post('entidades/create', 'Entidades::create');
+$routes->post('entidades/create', 'Users::createEntity');
 $routes->options('entidades/create', function () {
     return service('response')->setStatusCode(200);
 });
 // Cria a campanha no banco
 $routes->post('campanhas/create', 'Campanhas::create');
 $routes->options('campanhas/create', function () {
+    return service('response')->setStatusCode(200);
+});
+
+//Rota de login
+$routes->post('users/login', 'Users::login');
+$routes->options('login', function () {
+    return service('response')->setStatusCode(200);
+});
+$routes->post('entidades/login', 'Users::login');
+$routes->options('login', function () {
     return service('response')->setStatusCode(200);
 });
